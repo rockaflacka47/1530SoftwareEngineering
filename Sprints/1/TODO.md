@@ -5,10 +5,10 @@
 
       | Name            | GitHub        | Title           |
       |-----------------|---------------|-----------------|
-      | Conor Lamb      | Pere5troika   | ?Scrum Master?  |
-      | Dave Rocker     | rockaflacka47 | ?Scrum Master?  |
-      | Signe Ruprecht  | SigneRuprecht | ?Scrum Master?  |
-      | Dalton Scharff  | daltonscharff | ?Scrum Master?  |
+      | Conor Lamb      | Pere5troika   | --              |
+      | Dave Rocker     | rockaflacka47 | Scrum Master    |
+      | Signe Ruprecht  | SigneRuprecht | --              |
+      | Dalton Scharff  | daltonscharff | --              |
 
       https://github.com/rockaflacka47/Communism/
 
