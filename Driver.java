@@ -8,7 +8,10 @@ public class Driver{
 
         numberOfPlayers = getIntegerInput(in, "Please enter the number of players(2-4): ", 2, 4);
     	playerList = createPlayers(numberOfPlayers);
+
+    	BoardGrid board = new BoardGrid();
     }
+
 
     public static int getIntegerInput(Scanner in, String prompt, int min, int max){
     	String input;
@@ -35,6 +38,7 @@ public class Driver{
     	}
     }
 
+
     public static ArrayList<Player> createPlayers(int numberOfPlayers){
     	ArrayList<Player> playerList = new ArrayList<Player>();
     	for(int i = 1; i <= numberOfPlayers; i++){
@@ -42,6 +46,7 @@ public class Driver{
     	}
     	return playerList;
     }
+
 
     public static void error(String errorMsg, boolean isFatal){
     	System.out.println("ERROR: " + errorMsg);

@@ -16,10 +16,6 @@ public class BoardGrid {
     private JPanel[] _panels = new JPanel[42];
 	private JFrame _frame = new JFrame("boardGrid");
 
-	public static void main(String[] args) {
-		new BoardGrid();
-	}
-
 	public BoardGrid() {
 		_frame.setSize(WIDTH, HEIGHT);
 		_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,8 +50,6 @@ public class BoardGrid {
 	   
 	    _frame.add(_panels[41]);
 		_frame.setVisible(true);
-
-
 	}
 
 	
