@@ -55,26 +55,20 @@ public class BoardGrid {
 	
 
 	public static Color panelColor(int panelCounter){
-		Color red = new Color(255, 102, 102);
-		Color yellow = new Color(255, 255, 102);
-		Color blue = new Color(102, 204, 255);
-		Color green = new Color(102, 255, 204);
-		Color orange = new Color(255, 204, 102);
-
 		Color color = red;
 		  switch (panelCounter) {
-            case 1:  color = red;
-                     break;
-            case 2:  color = yellow;
-                     break;
-            case 3:  color = blue;
-                     break;
-            case 4:  color = green;
-                     break;
-            case 5:  color = orange;
-                     break;
+            case 1: color = GameColor.RED;
+                    break;
+            case 2: color = GameColor.YELLOW;
+                    break;
+            case 3: color = GameColor.BLUE;
+                    break;
+            case 4: color = GameColor.GREEN;
+                    break;
+            case 5: color = GameColor.ORANGE;
+                    break;
             default: 
-                     break;
+                    break;
         }
 
         return color;
