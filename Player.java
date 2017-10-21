@@ -1,13 +1,30 @@
 public class Player{
-    int playerNum;
-    int location;
+    private int number;
+    private int location;
 
-    public Player(int num, int loc){
-        playerNum = num;
-        location = loc;
+    public Player(int number){
+    	this.number = number;
+    	this.location = 0;
     }
 
-    public void Move(int newLoc){
-        location = newLoc;
+    public Player(int number, int loc){
+        this.number = number;
+        this.location = location;
+    }
+
+    public void setNumber(int number){
+    	this.number = number;
+    }
+
+    public void setLocation(int location){
+        this.location = location;
+    }
+
+    public int getNumber(){
+    	return number;
+    }
+
+    public int getLocation(){
+    	return location;
     }
 }
