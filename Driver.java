@@ -1,4 +1,5 @@
 import java.util.*;
+import javax.swing.*;
 public class Driver{
     Deck deck = new Deck();
     public static void main(String[] args){
@@ -40,9 +41,10 @@ public class Driver{
 
 
     public static ArrayList<Player> createPlayers(int numberOfPlayers){
+    	ImageIcon[] iconList = {new ImageIcon("Tokens/candy.png", "Candy"), new ImageIcon("Tokens/gummybear.png", "Gummy Bear"), new ImageIcon("Tokens/jellybean.png", "Jelly Bean"), new ImageIcon("Tokens/lollipop.png", "Lollipop")};
     	ArrayList<Player> playerList = new ArrayList<Player>();
-    	for(int i = 1; i <= numberOfPlayers; i++){
-    		playerList.add(new Player(i));
+    	for(int i = 0; i < numberOfPlayers; i++){
+    		playerList.add(new Player(i+1, 0, iconList[i]));
     	}
     	return playerList;
     }
