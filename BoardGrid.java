@@ -55,7 +55,7 @@ public class BoardGrid {
 	
 
 	public static Color panelColor(int panelCounter){
-		Color color = red;
+		Color color = null;
 		  switch (panelCounter) {
             case 1: color = GameColor.RED;
                     break;
