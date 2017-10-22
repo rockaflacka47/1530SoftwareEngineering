@@ -7,7 +7,7 @@ public class Driver{
         int numberOfPlayers;
         ArrayList<Player> playerList;
 
-        numberOfPlayers = getIntegerInput(in, "Please enter the number of players(2-4): ", 2, 4);
+        numberOfPlayers = getIntegerInput(in, "Please enter the number of players (2-4): ", 2, 4);
     	playerList = createPlayers(numberOfPlayers);
 
     	BoardGrid board = new BoardGrid();
