@@ -47,7 +47,11 @@ public class GameBoardSquare{
 
 		generatePanels();
 		addColorToPanels();
-		addPanelsToContainer();
+		
+		container.setLayout(new GridLayout(1,4,0,0));
+		for(JPanel panel : panels){
+			container.add(panel);
+		}
 
 		Container tempContainer = new Container();
 		tempContainer.setLayout(new GridLayout(2,1,0,0));
@@ -96,7 +100,6 @@ public class GameBoardSquare{
 	private void addColorToPanels(){
 		for(JPanel panel : panels){
 			panel.setBackground(color);
-
 		}
 	}
 

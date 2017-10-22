@@ -10,7 +10,7 @@ public class Driver{
         numberOfPlayers = getIntegerInput(in, "Please enter the number of players (2-4): ", 2, 4);
     	playerList = createPlayers(numberOfPlayers);
 
-    	GUI gameBoard = new GUI();
+    	GUI gameBoard = new GUI(playerList);
     }
 
 
@@ -41,7 +41,7 @@ public class Driver{
 
 
     public static ArrayList<Player> createPlayers(int numberOfPlayers){
-    	ImageIcon[] iconList = {new ImageIcon("Tokens/candy.png", "Candy"), new ImageIcon("Tokens/gummybear.png", "Gummy Bear"), new ImageIcon("Tokens/jellybean.png", "Jelly Bean"), new ImageIcon("Tokens/lollipop.png", "Lollipop")};
+    	ImageIcon[] iconList = {new ImageIcon("images/tokens/candy.png", "Candy"), new ImageIcon("images/tokens/gummybear.png", "Gummy Bear"), new ImageIcon("images/tokens/jellybean.png", "Jelly Bean"), new ImageIcon("images/tokens/lollipop.png", "Lollipop")};
     	ArrayList<Player> playerList = new ArrayList<Player>();
     	for(int i = 0; i < numberOfPlayers; i++){
     		playerList.add(new Player(null, i+1, 0, iconList[i]));
