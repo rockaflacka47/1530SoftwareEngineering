@@ -74,7 +74,9 @@ public class GUI {
 		infoContainer.add(turnPanel);
 
 		deckPanel = new JPanel();
-		deckPanel.setLayout(new GridLayout(1,2,0,0));
+		deckPanel.setLayout(new GridLayout(1,1,0,0));
+		ImageIcon cardBack = new ImageIcon("images/deck/candy_corn.jpg", "CardBack");
+		deckPanel.add(new JLabel(scaleIcon(cardBack, 350)));
 		infoContainer.add(deckPanel);
 
 		if(playerList != null){
@@ -97,6 +99,20 @@ public class GUI {
 		image = image.getScaledInstance(size, size, java.awt.Image.SCALE_SMOOTH);
 		return new ImageIcon(image);
 	}
+
+	/*public void displayShuffleNotification(){
+		JFrame shuffling = new JFrame();
+		shuffling.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		shuffling.setUndecorated(true);
+        
+		JLabel notif = new JLabel("Reshuffling Deck");
+		shuffling.setAlwaysOnTop(true);
+		shuffling.setLocation(500, 500);
+		shuffling.setTitle("Notice!");
+		shuffling.add(notif);
+		shuffling.pack();
+		shuffling.setVisible(true);
+	}*/
 
 
 

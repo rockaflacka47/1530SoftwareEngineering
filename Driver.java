@@ -1,7 +1,8 @@
 import java.util.*;
 import javax.swing.*;
 public class Driver{
-    Deck deck = new Deck();
+	Deck deck = new Deck();
+	static int cardsDrawn = 0;
     public static void main(String[] args){
         Scanner in = new Scanner(System.in);
         int numberOfPlayers;
@@ -10,7 +11,9 @@ public class Driver{
         numberOfPlayers = getIntegerInput(in, "Please enter the number of players (2-4): ", 2, 4);
     	playerList = createPlayers(numberOfPlayers);
 
-    	GUI gameBoard = new GUI(playerList);
+		GUI gameBoard = new GUI(playerList);
+		cardsDrawn = 60;
+		//reshuffleNotification(gameBoard);
     }
 
 
@@ -39,7 +42,12 @@ public class Driver{
     	}
     }
 
-
+	//notification that deck is being shuffled comes up if we have drawn entire thing
+	/*public static void reshuffleNotification(GUI gameBoard){
+		if(cardsDrawn % 60 == 0){
+			gameBoard.displayShuffleNotification("Reshuffling Deck");
+		}
+	}*/
     public static ArrayList<Player> createPlayers(int numberOfPlayers){
     	ImageIcon[] iconList = {new ImageIcon("images/tokens/candy.png", "Candy"), new ImageIcon("images/tokens/gummybear.png", "Gummy Bear"), new ImageIcon("images/tokens/jellybean.png", "Jelly Bean"), new ImageIcon("images/tokens/lollipop.png", "Lollipop")};
     	ArrayList<Player> playerList = new ArrayList<Player>();
