@@ -11,19 +11,21 @@ public class GUI {
     private JPanel turnPanel;
     private JPanel deckPanel;
     private JPanel keyPanel;
+    private JPanel drawCardPanel;
+    Container infoContainer;
 
 	public GUI() {
 		JFrame frame = initFrame();
 		frame.add(createGameBoard());
-		frame.add(createInfoArea(null));
+		frame.add(createInfoArea(null, null));
 		frame.pack();
 		frame.setVisible(true);
 	}
 
-	public GUI(ArrayList<Player> playerList){
+	public GUI(ArrayList<Player> playerList, Deck deck){
 		JFrame frame = initFrame();
 		frame.add(createGameBoard());
-		frame.add(createInfoArea(playerList));
+		frame.add(createInfoArea(playerList, deck));
 		frame.pack();
 		frame.setVisible(true);
 	}
@@ -63,10 +65,11 @@ public class GUI {
 		return boardContainer;
 	}
 
-	private Container createInfoArea(ArrayList<Player> playerList){
-		Container infoContainer = new Container();
+	private Container createInfoArea(ArrayList<Player> playerList, Deck deck){
+		final Deck deckTest = deck;
+		infoContainer = new Container();
 
-		infoContainer.setLayout(new GridLayout(3,1));
+		infoContainer.setLayout(new GridLayout(4,1));
 		infoContainer.setPreferredSize(new Dimension(WIDTH_RIGHT, HEIGHT));
 
 		turnPanel = new JPanel();
@@ -75,9 +78,30 @@ public class GUI {
 
 		deckPanel = new JPanel();
 		deckPanel.setLayout(new GridLayout(1,1,0,0));
-		ImageIcon cardBack = new ImageIcon("images/deck/candy_corn.jpg", "CardBack");
-		deckPanel.add(new JLabel(scaleIcon(cardBack, 350)));
+		ImageIcon cardBack = GameCards.cardBack;
+		
+		deckPanel.add(new JLabel(scaleIcon(cardBack, 225)));
+		deckPanel.add(new JLabel(scaleIcon(cardBack, 225)));
 		infoContainer.add(deckPanel);
+
+		JButton drawCardButton = new JButton("Draw Card");
+
+		drawCardButton.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent e) {
+            Card cardDrawn = deckTest.drawCard();
+            ImageIcon cardDisplayed = cardDrawn.face;
+         	
+         	deckPanel.remove(1);
+
+            deckPanel.add(new JLabel(scaleIcon(cardDisplayed, 225)));
+       	    infoContainer.revalidate();
+       	    infoContainer.repaint();
+         }          
+      	}); 
+
+		drawCardPanel = new JPanel();
+		drawCardPanel.add(drawCardButton);
+		infoContainer.add(drawCardPanel);
 
 		if(playerList != null){
 			keyPanel = new JPanel();

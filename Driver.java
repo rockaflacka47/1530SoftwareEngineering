@@ -1,9 +1,11 @@
 import java.util.*;
 import javax.swing.*;
 public class Driver{
-	Deck deck = new Deck();
+	
 	static int cardsDrawn = 0;
     public static void main(String[] args){
+        Deck deck = new Deck();
+        deck.shuffle();
         Scanner in = new Scanner(System.in);
         int numberOfPlayers;
         ArrayList<Player> playerList;
@@ -11,7 +13,7 @@ public class Driver{
         numberOfPlayers = getIntegerInput(in, "Please enter the number of players (2-4): ", 2, 4);
     	playerList = createPlayers(numberOfPlayers);
 
-		GUI gameBoard = new GUI(playerList);
+		GUI gameBoard = new GUI(playerList, deck);
 		cardsDrawn = 60;
 		//reshuffleNotification(gameBoard);
     }
