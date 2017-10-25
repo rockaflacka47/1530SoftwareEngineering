@@ -1,9 +1,11 @@
 # Communism
-## 1530 Project
+## 1530 Project - World of Sweets
 
-## Run Program
-javac \*.java
-<br>java Driver
+**Build Program:** 	
+gradle build
 
-## Run Tests
-$ ./runTests.sh
+**Run Program:** 	
+gradle run
+
+**Run Tests:** 		
+gradle test

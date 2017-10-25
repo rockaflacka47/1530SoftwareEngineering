@@ -1,3 +1,5 @@
+package worldofsweets;
+
 import javax.swing.*;
 import java.util.*;
 import java.awt.Color;

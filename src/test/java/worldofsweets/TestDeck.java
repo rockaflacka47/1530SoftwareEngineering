@@ -1,8 +1,9 @@
-import java.awt.Color;
+package worldofsweets;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.mockito.*;
+import java.awt.Color;
 
 public class TestDeck {
 

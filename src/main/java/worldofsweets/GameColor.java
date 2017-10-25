@@ -1,3 +1,5 @@
+package worldofsweets;
+
 import java.awt.Color;
 public class GameColor{
 	public static final Color RED = new Color(253,51,65);
