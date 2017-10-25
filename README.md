@@ -1,11 +1,11 @@
 # Communism
 ## 1530 Project - World of Sweets
 
-## Build Program
+**Build Program**
 gradle build
 
-## Run Program
+**Run Program**
 gradle run
 
-## Run Tests
+**Run Tests**
 gradle test
