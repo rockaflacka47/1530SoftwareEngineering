@@ -1,3 +1,5 @@
+package worldofsweets;
+
 import javax.swing.*;
 public class Player{
     private String name;

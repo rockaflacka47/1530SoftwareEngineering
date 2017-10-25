@@ -1,0 +1,28 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = "worldofsweets.Driver"
+
+repositories{
+	mavenCentral()
+}
+
+dependencies{
+	testCompile 'junit:junit:4.12'
+	testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+}
+
+task sequencehelp {
+	println "World Of Sweets"
+	println "A GUI for the popular game that's sweeping the nation!"
+}
+
+run{
+	try{
+		systemProperties System.getProperties()
+		args System.getProperty("args").split()
+	}catch(Exception e){
+		// println "Please add -Dargs=\"...\" even if it is empty"
+	}
+}
+
