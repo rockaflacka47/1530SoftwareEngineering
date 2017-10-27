@@ -49,7 +49,7 @@ public class Driver{
     }
 
     public static ArrayList<Player> createPlayers(int numberOfPlayers){
-    	ImageIcon[] iconList = {new ImageIcon("worldofsweets/images/tokens/candy.png", "Candy"), new ImageIcon("worldofsweets/images/tokens/gummybear.png", "Gummy Bear"), new ImageIcon("worldofsweets/images/tokens/jellybean.png", "Jelly Bean"), new ImageIcon("worldofsweets/images/tokens/lollipop.png", "Lollipop")};
+    	ImageIcon[] iconList = {new ImageIcon("images/tokens/candy.png", "Candy"), new ImageIcon("images/tokens/gummybear.png", "Gummy Bear"), new ImageIcon("images/tokens/jellybean.png", "Jelly Bean"), new ImageIcon("images/tokens/lollipop.png", "Lollipop")};
     	ArrayList<Player> playerList = new ArrayList<Player>();
     	for(int i = 0; i < numberOfPlayers; i++){
     		playerList.add(new Player(null, i+1, 0, iconList[i]));
