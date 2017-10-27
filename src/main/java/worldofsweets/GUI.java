@@ -14,26 +14,42 @@ public class GUI {
     private JPanel deckPanel;
     private JPanel keyPanel;
     private JPanel drawCardPanel;
-    Container infoContainer;
+    private Container infoContainer;
+    private BoardGrid board;
+    private int playerTurn;
+    private int numberOfPlayers;
 
 	public GUI() {
 		JFrame frame = initFrame();
-		frame.add(createGameBoard());
+		frame.add(createGameBoard(null));
 		frame.add(createInfoArea(null, null));
 		frame.pack();
 		frame.setVisible(true);
+
+		numberOfPlayers = 0;
+		playerTurn = 0;
 	}
 
 	public GUI(ArrayList<Player> playerList, Deck deck){
 		JFrame frame = initFrame();
-		frame.add(createGameBoard());
+		frame.add(createGameBoard(playerList));
 		frame.add(createInfoArea(playerList, deck));
 		frame.pack();
 		frame.setVisible(true);
+
+		numberOfPlayers = playerList.size();
+		playerTurn = 0;
 	}
 
-	public void setPlayerTurn(Player player){
-		
+	public void setPlayerTurn(){
+		if(playerTurn == numberOfPlayers - 1)
+		{
+			playerTurn = 0;
+		}
+		else
+		{
+			playerTurn = playerTurn + 1;	
+		}	
 	}
 
 	private JFrame initFrame(){
@@ -48,29 +64,19 @@ public class GUI {
 		return frame;
 	}
 
-	private Container createGameBoard(){
-		Container boardContainer = new Container();
-		int panelsPerColumn = 7;
-		int panelsPerRow = 6;
+	private Container createGameBoard(ArrayList<Player> playerList){
+		board = new BoardGrid();
+		board.initalizePlayer(playerList);
+		
 
-		boardContainer.setLayout(new GridLayout(panelsPerColumn, panelsPerRow));
-		boardContainer.setPreferredSize(new Dimension(WIDTH_LEFT,HEIGHT));
-
-		boardContainer.add(new GameBoardSquare(0, "Start").getContainer());
-
-		for(int i = 0; i < (panelsPerRow * panelsPerColumn) - 2; i++){
-			boardContainer.add(new GameBoardSquare(i+1).getContainer());
-		}
-
-		boardContainer.add(new GameBoardSquare((panelsPerRow * panelsPerColumn) - 1, "Grandma's House").getContainer());
-
-		return boardContainer;
+		return board.getContainer();
 	}
 
 	private Container createInfoArea(ArrayList<Player> playerList, Deck deck){
 		final Deck deckTest = deck;
-		infoContainer = new Container();
+		final ArrayList<Player> players = playerList;
 
+		infoContainer = new Container();
 		infoContainer.setLayout(new GridLayout(4,1));
 		infoContainer.setPreferredSize(new Dimension(WIDTH_RIGHT, HEIGHT));
 
@@ -89,13 +95,17 @@ public class GUI {
 		JButton drawCardButton = new JButton("Draw Card");
 
 		drawCardButton.addActionListener(new ActionListener() {
-         public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
             Card cardDrawn = deckTest.drawCard();
             ImageIcon cardDisplayed = cardDrawn.face;
-         	
-         	deckPanel.remove(1);
 
+         	deckPanel.remove(1);
             deckPanel.add(new JLabel(scaleIcon(cardDisplayed, 225)));
+       	 	
+       	 	board.movePlayer(players.get(playerTurn), cardDisplayed);
+       	 	
+       	 	setPlayerTurn();
+
        	    infoContainer.revalidate();
        	    infoContainer.repaint();
          }          

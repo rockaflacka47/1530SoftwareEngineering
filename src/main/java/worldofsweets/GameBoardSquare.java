@@ -7,108 +7,67 @@ import java.util.*;
 
 public class GameBoardSquare{
 	private ArrayList<Player> players;
-	private ArrayList<JPanel> panels;
-	private JLabel label;
-	private Container container;
-	private int location;
+	private JPanel square;
 	private Color color;
+	
 
 	public GameBoardSquare(){
 		players = new ArrayList<Player>();
-		panels = new ArrayList<JPanel>();
-		label = null;
-		container = new Container();
-		location = 0;
-		color = Color.WHITE;
-
-		generatePanels();
-		addColorToPanels();
-		addPanelsToContainer();
 	}
 
-	public GameBoardSquare(int location){
+	public GameBoardSquare(JPanel panel){
 		players = new ArrayList<Player>();
-		panels = new ArrayList<JPanel>();
-		label = null;
-		container = new Container();
-		this.location = location;
+		setPanel(panel);
 
-		generateColor();
-		generatePanels();
-		addColorToPanels();
-		addPanelsToContainer();
 	}
 
-	public GameBoardSquare(int location, String labelText){
+	public GameBoardSquare(JPanel panel, Color color){
 		players = new ArrayList<Player>();
-		panels = new ArrayList<JPanel>();
-		label = new JLabel("<html><center>" + labelText + "</center></html>", JLabel.CENTER);
-		container = new Container();
-		this.location = location;
-		color = Color.WHITE;
+		this.color = color;
+		setPanel(panel);
 
-		generatePanels();
-		addColorToPanels();
-		
-		container.setLayout(new GridLayout(1,4,0,0));
-		for(JPanel panel : panels){
-			container.add(panel);
-		}
+	}
 
-		Container tempContainer = new Container();
-		tempContainer.setLayout(new GridLayout(2,1,0,0));
-		label.setOpaque(true);
-		label.setBackground(Color.WHITE);
-		tempContainer.add(label);
-		tempContainer.add(container);
-		container = tempContainer;
+	public void setPanel(JPanel panel){
+		this.square = panel;
+	}
+
+	public Color getGameColor(){
+		return color;
 	}
 
 	public void setPlayer(Player player){
+		ImageIcon playerIcon = player.getIcon();
+
 		players.add(player);
+		square.add(new JLabel(scaleIcon(playerIcon, 20)));
 	}
 
-	public int getLocation(){
-		return location;
+	public void setPlayers(){
+		square.removeAll();
+		for(Player player : players){
+			ImageIcon playerIcon = player.getIcon();
+			square.add(new JLabel(scaleIcon(playerIcon, 20)));
+		}
+
+	}
+
+	public void removePlayer(Player player){
+		if(players.contains(player))
+		{
+			players.remove(player);
+			setPlayers();
+		}
+
 	}
 
 	public ArrayList<Player> getPlayers(){
 		return players;
 	}
 
-	public JLabel getLabel(){
-		return label;
-	}
-
-	public Color getColor(){
-		return color;
-	}
-
-	public Container getContainer(){
-		return container;
-	}
-
-	private void generateColor(){
-		Color[] colors = {GameColor.RED, GameColor.YELLOW, GameColor.BLUE, GameColor.GREEN, GameColor.ORANGE};
-		this.color = colors[location % colors.length];
-	}
-
-	private void generatePanels(){
-		for(int i = 0; i < 4; i++){
-			panels.add(new JPanel());
-		}
-	}
-
-	private void addColorToPanels(){
-		for(JPanel panel : panels){
-			panel.setBackground(color);
-		}
-	}
-
-	private void addPanelsToContainer(){
-		container.setLayout(new GridLayout(2,2,0,0));
-		for(JPanel panel : panels){
-			container.add(panel);
-		}
+	private ImageIcon scaleIcon(ImageIcon icon, int size){
+		Image image = icon.getImage();
+		image = image.getScaledInstance(size, size, java.awt.Image.SCALE_SMOOTH);
+		return new ImageIcon(image);
 	}
 }
