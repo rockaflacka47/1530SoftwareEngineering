@@ -7,6 +7,7 @@ public class Card{
     Color color;
     int value;
     ImageIcon face;
+    
     public Card(Color color, int value){
         this.color = color;
         this.value = value;
