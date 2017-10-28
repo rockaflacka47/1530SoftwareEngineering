@@ -1,6 +1,8 @@
 package worldofsweets;
 
 import javax.swing.*;
+import java.awt.*;
+
 public class Player{
     private String name;
     private int number;
@@ -55,5 +57,11 @@ public class Player{
 
     public ImageIcon getIcon(){
     	return icon;
+    }
+
+    public ImageIcon getIcon(int size){
+        Image image = icon.getImage();
+        image = image.getScaledInstance(size, size, java.awt.Image.SCALE_SMOOTH);
+        return new ImageIcon(image);
     }
 }
