@@ -24,7 +24,7 @@ public class GUI {
 		pane.setBackground(GameColor.TABLE);
 		
 		JPanel boardPanel = initializeBoardPanel(null);
-		JPanel dataPanel = initializeDataPanel();
+		JPanel dataPanel = initializeDataPanel(null, -1, null);
 
 		pane.add(boardPanel);
 		pane.add(dataPanel);
@@ -49,6 +49,9 @@ public class GUI {
 		frame.repaint();
 	}
 
+
+	// Board Panel
+
 	private JPanel initializeBoardPanel(ArrayList<Player> playerList){
 		int numberOfPlayers;
 		if(playerList != null){
@@ -57,7 +60,6 @@ public class GUI {
 			numberOfPlayers = 0;
 		}
 		
-
 		tileList = new ArrayList<JPanel>();
 		JPanel boardPanel = new JPanel();
 		boardPanel.setLayout(new GridLayout(7, 7, 0, 0));
@@ -69,158 +71,9 @@ public class GUI {
 			tileList.add(createColorTile(i, playerList));
 		}
 		tileList.add(createEndTile("End", playerList));
+		event.setTileList(tileList);
 
 		return addTilesToPanel(boardPanel);
-	}
-
-	private JPanel initializeDataPanel(){
-		JPanel dataPanel = new JPanel();
-		dataPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		dataPanel.setPreferredSize(new Dimension(500, 700));
-		dataPanel.setBackground(GameColor.TRANSPARENT);
-
-		JPanel turnPanel = createTurnPanel("---");
-
-		JPanel deckPanel = createDeckPanel();
-
-		JPanel buttonPanel = createButtonPanel();
-
-		JPanel keyPanel = createKeyPanel();
-
-		dataPanel.add(turnPanel);
-		dataPanel.add(deckPanel);
-		dataPanel.add(buttonPanel);
-		dataPanel.add(keyPanel);
-
-		return dataPanel;
-	}
-
-	private JPanel initializeDataPanel(ArrayList<Player> playerList, int turnIndex, Card card){
-		JPanel dataPanel = new JPanel();
-		dataPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		dataPanel.setPreferredSize(new Dimension(500, 700));
-		dataPanel.setBackground(GameColor.TRANSPARENT);
-
-		JPanel turnPanel = createTurnPanel("---");
-
-		JPanel deckPanel = createDeckPanel();
-
-		JPanel buttonPanel = createButtonPanel();
-
-		JPanel keyPanel = createKeyPanel();
-
-		dataPanel.add(turnPanel);
-		dataPanel.add(deckPanel);
-		dataPanel.add(buttonPanel);
-		dataPanel.add(keyPanel);
-
-		return dataPanel;
-	}
-
-	private JPanel createTurnPanel(String message){
-		JPanel turnPanel = new JPanel();
-		JLabel label = new JLabel("<html><h1>" + message + "</h1></html>");
-		label.setForeground(Color.WHITE);
-		turnPanel.setPreferredSize(new Dimension(500, 100));
-		turnPanel.setBackground(GameColor.TRANSPARENT);
-
-		turnPanel.add(label);
-
-		return turnPanel;
-	}
-
-	private JPanel createDeckPanel(){
-		ImageIcon backImage = new ImageIcon("images/cards/cardBack.png");
-
-		JPanel deckPanel = new JPanel();
-		deckPanel.setPreferredSize(new Dimension(500, 350));
-		deckPanel.setBackground(GameColor.TRANSPARENT);
-		deckPanel.setLayout(new GridLayout(1, 2, 4, 0));
-
-		JLabel cardBack = new JLabel(backImage);
-
-		JLabel cardFront = new JLabel(backImage);
-
-		deckPanel.add(cardBack);
-		deckPanel.add(cardFront);
-
-		return deckPanel;
-	}
-
-	private JPanel createButtonPanel(){
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.setPreferredSize(new Dimension(500, 100));
-		buttonPanel.setBackground(GameColor.TRANSPARENT);
-		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-
-		JPanel blankPanel = new JPanel();
-		blankPanel.setPreferredSize(new Dimension(500, 40));
-		blankPanel.setBackground(GameColor.TRANSPARENT);
-
-		JButton button = new JButton("Draw A Card");
-
-		event.setButton(button); 
-		button.addActionListener(event);
-
-		buttonPanel.add(blankPanel);
-		buttonPanel.add(button);
-
-		return buttonPanel;
-	}
-
-	private JPanel createKeyPanel(){
-		JPanel keyPanel = new JPanel();
-		keyPanel.setPreferredSize(new Dimension(500, 150));
-		keyPanel.setBackground(GameColor.TRANSPARENT);
-		keyPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-
-		JPanel labelPanel = new JPanel();
-		labelPanel.setBackground(GameColor.SEMI_TRANSPARENT);
-		labelPanel.setLayout(new GridLayout(1, 4, 0, 0));
-		labelPanel.setPreferredSize(new Dimension(500, 25));
-		JLabel p1Label = new JLabel("--");
-		p1Label.setBackground(GameColor.TRANSPARENT);
-		p1Label.setBorder(BorderFactory.createMatteBorder(0, 2, 0, 2, GameColor.TABLE));
-		JLabel p2Label = new JLabel("--");
-		p2Label.setBackground(GameColor.TRANSPARENT);
-		p2Label.setBorder(BorderFactory.createMatteBorder(0, 2, 0, 2, GameColor.TABLE));
-		JLabel p3Label = new JLabel("--");
-		p3Label.setBackground(GameColor.TRANSPARENT);
-		p3Label.setBorder(BorderFactory.createMatteBorder(0, 2, 0, 2, GameColor.TABLE));
-		JLabel p4Label = new JLabel("--");
-		p4Label.setBackground(GameColor.TRANSPARENT);
-		p4Label.setBorder(BorderFactory.createMatteBorder(0, 2, 0, 2, GameColor.TABLE));
-
-		JPanel iconPanel = new JPanel();
-		iconPanel.setBackground(GameColor.SEMI_TRANSPARENT);
-		iconPanel.setLayout(new GridLayout(1, 4, 0, 0));
-		iconPanel.setPreferredSize(new Dimension(500, 125));
-		JPanel p1Icon = new JPanel();
-		p1Icon.setBackground(GameColor.TRANSPARENT);
-		p1Icon.setBorder(BorderFactory.createMatteBorder(0, 2, 0, 2, GameColor.TABLE));
-		JPanel p2Icon = new JPanel();
-		p2Icon.setBackground(GameColor.TRANSPARENT);
-		p2Icon.setBorder(BorderFactory.createMatteBorder(0, 2, 0, 2, GameColor.TABLE));
-		JPanel p3Icon = new JPanel();
-		p3Icon.setBackground(GameColor.TRANSPARENT);
-		p3Icon.setBorder(BorderFactory.createMatteBorder(0, 2, 0, 2, GameColor.TABLE));
-		JPanel p4Icon = new JPanel();
-		p4Icon.setBackground(GameColor.TRANSPARENT);
-		p4Icon.setBorder(BorderFactory.createMatteBorder(0, 2, 0, 2, GameColor.TABLE));
-
-		labelPanel.add(p1Label);
-		labelPanel.add(p2Label);
-		labelPanel.add(p3Label);
-		labelPanel.add(p4Label);
-		iconPanel.add(p1Icon);
-		iconPanel.add(p2Icon);
-		iconPanel.add(p3Icon);
-		iconPanel.add(p4Icon);
-
-		keyPanel.add(labelPanel);
-		keyPanel.add(iconPanel);
-
-		return keyPanel;
 	}
 
 	private JPanel addTilesToPanel(JPanel boardPanel){
@@ -384,4 +237,142 @@ public class GUI {
 		
 		return endTile;
 	}
+
+
+	// Data Panel
+
+	private JPanel initializeDataPanel(ArrayList<Player> playerList, int turnIndex, Card card){
+		JPanel dataPanel = new JPanel();
+		dataPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		dataPanel.setPreferredSize(new Dimension(500, 700));
+		dataPanel.setBackground(GameColor.TRANSPARENT);
+
+		JPanel turnPanel = createTurnPanel(playerList, turnIndex);
+
+		JPanel deckPanel = createDeckPanel(card);
+
+		JPanel buttonPanel = createButtonPanel();
+
+		JPanel keyPanel = createKeyPanel(playerList, turnIndex);
+
+		dataPanel.add(turnPanel);
+		dataPanel.add(deckPanel);
+		dataPanel.add(buttonPanel);
+		dataPanel.add(keyPanel);
+
+		return dataPanel;
+	}
+
+	private JPanel createTurnPanel(ArrayList<Player> playerList, int turnIndex){
+		String message = "---";
+		if(playerList != null){
+			message = playerList.get(turnIndex).getName() + "'s Turn";
+		}
+
+		JPanel turnPanel = new JPanel();
+		JLabel label = new JLabel(message);
+		Font font = label.getFont();
+		label.setFont(new Font(font.getName(), font.getStyle(), 24));
+		label.setForeground(Color.WHITE);
+		turnPanel.setPreferredSize(new Dimension(500, 100));
+		turnPanel.setBackground(GameColor.TRANSPARENT);
+
+		turnPanel.add(label);
+
+		return turnPanel;
+	}
+
+	private JPanel createDeckPanel(Card card){
+		ImageIcon leftIcon = new ImageIcon("images/cards/cardBack.png");
+		ImageIcon rightIcon;
+		if(card != null){
+			rightIcon = card.getIcon();
+		}else{
+			rightIcon = leftIcon;
+		}
+
+		JPanel deckPanel = new JPanel();
+		deckPanel.setPreferredSize(new Dimension(500, 350));
+		deckPanel.setBackground(GameColor.TRANSPARENT);
+		deckPanel.setLayout(new GridLayout(1, 2, 4, 0));
+
+		JLabel leftLabel = new JLabel(leftIcon);
+
+		JLabel rightLabel = new JLabel(rightIcon);
+
+		deckPanel.add(leftLabel);
+		deckPanel.add(rightLabel);
+
+		return deckPanel;
+	}
+
+	private JPanel createButtonPanel(){
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setPreferredSize(new Dimension(500, 100));
+		buttonPanel.setBackground(GameColor.TRANSPARENT);
+		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+
+		JPanel blankPanel = new JPanel();
+		blankPanel.setPreferredSize(new Dimension(500, 40));
+		blankPanel.setBackground(GameColor.TRANSPARENT);
+
+		JButton button = new JButton("Draw A Card");
+
+		event.setButton(button); 
+		button.addActionListener(event);
+
+		buttonPanel.add(blankPanel);
+		buttonPanel.add(button);
+
+		return buttonPanel;
+	}
+
+	private JPanel createKeyPanel(ArrayList<Player> playerList, int turnIndex){
+		JPanel keyPanel = new JPanel();
+		keyPanel.setPreferredSize(new Dimension(500, 150));
+		keyPanel.setBackground(GameColor.TRANSPARENT);
+		keyPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+
+		if(playerList != null){
+			JPanel textPanel = new JPanel();
+			textPanel.setLayout(new GridLayout(1, 4, 5, 5));
+			textPanel.setPreferredSize(new Dimension(500, 35));
+			textPanel.setBackground(GameColor.TRANSPARENT);
+			JPanel iconPanel = new JPanel();
+			iconPanel.setLayout(new GridLayout(1, 4, 5, 5));
+			iconPanel.setPreferredSize(new Dimension(500, 115));
+			iconPanel.setBackground(GameColor.TRANSPARENT);
+
+			for(int i = 0; i < playerList.size(); i++){
+				Player player = playerList.get(i);
+
+				JPanel panelA = new JPanel();
+				JLabel textLabel = new JLabel(player.getName());
+				panelA.add(textLabel);
+				if(i == turnIndex){
+					panelA.setBackground(Color.WHITE);
+				}else{
+					panelA.setBackground(GameColor.SEMI_TRANSPARENT);
+				}
+				textPanel.add(panelA);
+
+				JPanel panelB = new JPanel();
+				JLabel iconLabel = new JLabel(player.getIcon(100));
+				panelB.add(iconLabel);
+				if(i == turnIndex){
+					panelB.setBackground(Color.WHITE);
+				}else{
+					panelB.setBackground(GameColor.SEMI_TRANSPARENT);
+				}
+				iconPanel.add(panelB);
+			}
+
+			keyPanel.add(textPanel);
+			keyPanel.add(iconPanel);
+		}
+
+		return keyPanel;
+	}
+
+
 }

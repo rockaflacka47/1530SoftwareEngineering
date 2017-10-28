@@ -10,6 +10,6 @@ public class GameColor{
 	public static final Color[] TILE_COLORS = {RED, YELLOW, BLUE, GREEN, ORANGE};
 	public static final Color TABLE = new Color(76, 161, 92);
 	public static final Color TRANSPARENT = new Color(128, 128, 128, 0);
-	public static final Color SEMI_TRANSPARENT = new Color(255, 255, 255, 192);
+	public static final Color SEMI_TRANSPARENT = new Color(255, 255, 255, 128);
 
 }
