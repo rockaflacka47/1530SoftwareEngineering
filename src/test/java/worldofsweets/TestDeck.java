@@ -1,50 +1,77 @@
 package worldofsweets;
 
-import org.junit.Test;
+import org.junit.*;
 import static org.junit.Assert.*;
 import org.mockito.*;
 import java.awt.Color;
+import java.util.*;
 
 public class TestDeck {
 
-  // //Test that card is constructed correctly
-  // @Test
-  // public void testCardConstructor() {
-  //   Card card = new Card(GameColor.RED, 2);
-  //   assertEquals(card.color, GameColor.RED);
-  //   assertEquals(card.value, 2);
+	// Test for the correct number of cards (60)
+	@Test
+	public void TestCardsInDeck(){
+		int numberOfCards = 60;
+		Deck d = new Deck();
+		assertEquals(d.deck.size(), numberOfCards);
+	}
 
-  // }
+	// Test that deck contains 12 red cards
+	@Test
+	public void Test12Cards_Red(){
+		int numberOfCards = 12;
+		Color testColor = GameColor.RED;
+		Deck d = new Deck();
+		HashMap<Color, Integer> map = new HashMap<Color, Integer>();
+		for(Color color : d.colors){
+			map.put(color, 0);
+		}
+		for(Card card : d.deck){
+			map.put(card.getColor(), map.get(card.getColor())+1);
+		}
 
-  // //Test Deck Constructor
-  // @Test
-  // public void testDeckConstructor() {
-  //   Deck deck = new Deck();
-  //   assertEquals(deck.deck.size(), 60);
+		assertEquals((int)map.get(testColor), numberOfCards);
+	}
 
-  //   Color [] colors = {GameColor.RED, GameColor.YELLOW, GameColor.BLUE, GameColor.GREEN, GameColor.ORANGE};
-  //   int numCorrectColors = 0;
-  //   for(int i = 0; i < 5; i++){
-  //       for(int j = 0; j < 12; j++){
-  //           Card check = deck.deck.get((i*12)+j);
-  //           int value;
-  //           if(j<10)
-  //               value = 1;
-  //           else
-  //               value = 2;
-  //           assertEquals(check.color, colors[i]);
-  //           assertEquals(check.value, value);
-  //       }
-  //   }
-  // }
-  // @Test
-  // public void testDeckShuffle(){
+	//Test that deck contains 10 singles and 2 double red cards
+	@Test
+	public void TestSinglesAndDoubles_Red(){
+		int numberOfSingleCards = 10;
+		int numberOfDoubleCards = 2;
+		Color testColor = GameColor.RED;
+		Deck d = new Deck();
+		HashMap<Integer, Integer> valueMap = new HashMap<Integer, Integer>();
+		valueMap.put(1,0);
+		valueMap.put(2,0);
+		for(Card card : d.deck){
+			if(card.getColor() == testColor){
+				valueMap.put(card.getValue(), valueMap.get(card.getValue())+1);
+			}
+		}
 
-  // }
+		assertTrue(valueMap.get(1) == numberOfSingleCards && valueMap.get(2) == numberOfDoubleCards);
+	}
 
-  
-  // @Test
-  // public void testDrawCard(){
+	//Test that deck is shuffled
+	@Test
+	public void TestShuffled(){
+		Deck orderedDeck = new Deck();
+		Deck shuffledDeck = new Deck();
+		shuffledDeck.shuffle();
+		for(Card c : shuffledDeck.deck){
+			System.out.println(c.getColor() + ", " + c.getValue());
+		}
 
-  // }
+		boolean isEqual = true;
+		for(int i = 0;  i < orderedDeck.deck.size(); i++){
+			if(orderedDeck.deck.get(i).getColor() != shuffledDeck.deck.get(i).getColor() || orderedDeck.deck.get(i).getValue() != shuffledDeck.deck.get(i).getValue()){
+				isEqual = false;
+			}
+		}
+
+		assertFalse(isEqual);
+
+	}
+
+
 }
