@@ -19,6 +19,7 @@ public class Event implements ActionListener{
 		int numberOfPlayers = getNumberOfPlayers();
         playerList = createPlayers(numberOfPlayers);
         cardDeck = new Deck();
+        cardDeck.shuffle();
         turnIndex = 0;
 
         gameBoard.redraw(playerList, turnIndex, null);

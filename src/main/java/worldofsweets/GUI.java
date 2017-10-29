@@ -70,7 +70,7 @@ public class GUI {
 		for(int i = 0; i < 47; i++){
 			tileList.add(createColorTile(i, playerList));
 		}
-		tileList.add(createEndTile("End", playerList));
+		tileList.add(createEndTile("Grandma's House", playerList));
 		event.setTileList(tileList);
 
 		return addTilesToPanel(boardPanel);
@@ -166,7 +166,7 @@ public class GUI {
 		startTile.setPreferredSize(new Dimension(100, 100));
 		startTile.setBackground(Color.WHITE);
 
-		JLabel label = new JLabel(message);
+		JLabel label = new JLabel("<html><body style='width: 100; text-align: center'>" + message + "</body></html>");
 		startTile.add(label);
 
 		if(playerList != null){
@@ -218,17 +218,18 @@ public class GUI {
 		endTile.setPreferredSize(new Dimension(100, 100));
 		endTile.setBackground(Color.WHITE);
 
-		JLabel label = new JLabel(message);
+		JLabel label = new JLabel("<html><body style='width: 100; text-align: center'>" + message + "</body></html>");
+		label.setPreferredSize(new Dimension(100, 30));
 		endTile.add(label);
 
 		if(playerList != null){
 			JPanel panel = new JPanel();
-			panel.setPreferredSize(new Dimension(100, 78));
+			panel.setPreferredSize(new Dimension(100, 70));
 			panel.setBackground(GameColor.TRANSPARENT);
 			panel.setLayout(new GridLayout(1, 1, 0, 0));
 
 			for(Player player : getPlayersOnTile(playerList, 48)){
-				JLabel iconLabel = new JLabel(player.getIcon(78));
+				JLabel iconLabel = new JLabel(player.getIcon(50));
 				panel.add(iconLabel);
 			}
 
@@ -373,6 +374,5 @@ public class GUI {
 
 		return keyPanel;
 	}
-
 
 }
