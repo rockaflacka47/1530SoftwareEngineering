@@ -22,7 +22,7 @@ run{
 		systemProperties System.getProperties()
 		args System.getProperty("args").split()
 	}catch(Exception e){
-		// println "Please add -Dargs=\"...\" even if it is empty"
+		println "Please add -Dargs=\"...\" even if it is empty"
 	}
 }
 
@@ -30,13 +30,12 @@ class theRules extends DefaultTask{
 
     @TaskAction
     def task(){
-        println "Rules for World of Sweets:"
-        println "Each player draws a card at the start of their turn."
-		println "That player moves to the next square matching the color of card drawn."
-		println "If the card is a double move to the second occurance of that color past where you are."
-		println "Once a player would pass Grandma's House they win."
-    }   
+      println "Rules for World of Sweets:"
+      println "Each player draws a card at the start of their turn."
+			println "That player moves to the next square matching the color of card drawn."
+			println "If the card is a double move to the second occurance of that color past where you are."
+			println "Once a player would pass Grandma's House they win."
+    }
 }
 
 task rules(type: theRules)
-
