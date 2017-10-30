@@ -21,6 +21,12 @@ public class Deck{
                 deck.add(new Card(colors[i],value));
             }
         }
+        for(int i = 0; i < 8; i++){
+            if(i<3)
+                deck.add(new Card(GameColor.WHITE, 3));
+            else
+                deck.add(new Card(GameColor.WHITE, 4));
+        }
     }
 
     public void shuffle(){
@@ -30,7 +36,7 @@ public class Deck{
 
     //if the deck has been drawn through shuffle it and keep going
     public Card drawCard(){
-        if(drawNum == 60){
+        if(drawNum == 67){
             drawNum = 0;
             this.shuffle();
         }

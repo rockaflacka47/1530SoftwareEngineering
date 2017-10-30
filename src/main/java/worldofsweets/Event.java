@@ -79,8 +79,16 @@ public class Event implements ActionListener{
 	public void actionPerformed(ActionEvent event){
 		if(event.getSource() == button){
             Player player = playerList.get(turnIndex);
-			Card card = cardDeck.drawCard();
-            player.setLocation(findMoveLocation(player.getLocation(), card));
+            Card card = cardDeck.drawCard();
+            if(card.getValue() == 1 || card.getValue() == 2){
+                player.setLocation(findMoveLocation(player.getLocation(), card));
+            }
+            else if(card.getValue() == 3){
+                player.setLocation(24);
+            }
+            else if(card.getValue() == 4){
+               //nothing needs to be done because of how this method was implemented
+            }
             if(player.getLocation() == 48){
                 gameOver(player, card);
             }else{
