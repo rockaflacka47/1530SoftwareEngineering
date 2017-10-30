@@ -5,9 +5,7 @@ import java.util.*;
 
 public class Deck{
     ArrayList<Card> deck = new ArrayList<Card>();
-    //colors are RED/YELLOW/BLUE/GREEN/ORANGE in order
     Color [] colors = {GameColor.RED, GameColor.YELLOW, GameColor.BLUE, GameColor.GREEN, GameColor.ORANGE};
-    //dynamic way of drawing cards
     int drawNum = 0;
 
     //add 12 of each color. 10 single 2 double
