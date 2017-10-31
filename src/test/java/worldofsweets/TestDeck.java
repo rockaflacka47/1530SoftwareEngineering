@@ -11,7 +11,7 @@ public class TestDeck {
 	// Test for the correct number of cards (60)
 	@Test
 	public void TestCardsInDeck(){
-		int numberOfCards = 60;
+		int numberOfCards = 68;
 		Deck d = new Deck();
 		assertEquals(d.deck.size(), numberOfCards);
 	}
@@ -29,7 +29,6 @@ public class TestDeck {
 		for(Card card : d.deck){
 			map.put(card.getColor(), map.get(card.getColor())+1);
 		}
-
 		assertEquals((int)map.get(testColor), numberOfCards);
 	}
 

@@ -5,12 +5,13 @@ import java.util.*;
 
 public class Deck{
     ArrayList<Card> deck = new ArrayList<Card>();
-    Color [] colors = {GameColor.RED, GameColor.YELLOW, GameColor.BLUE, GameColor.GREEN, GameColor.ORANGE};
+    Color [] colors = {GameColor.RED, GameColor.YELLOW, GameColor.BLUE, GameColor.GREEN, GameColor.ORANGE, GameColor.WHITE};
     int drawNum = 0;
 
     //add 12 of each color. 10 single 2 double
     //will need to change a bit when implementing special cards
     public Deck(){
+        //Don't include white
         for(int i = 0; i < 5; i++){
             for(int j = 0; j < 12; j++){
                 int value;
@@ -21,6 +22,7 @@ public class Deck{
                 deck.add(new Card(colors[i],value));
             }
         }
+        //Include White
         for(int i = 0; i < 8; i++){
             if(i<3)
                 deck.add(new Card(GameColor.WHITE, 3));
