@@ -71,6 +71,20 @@ public class TestDeck {
 		assertFalse(isEqual);
 
 	}
-
+	@Test
+	//Test Special Cards added
+	public void TestSpecialCards() {
+		int numberOfCards = 8;
+		Color testColor = GameColor.WHITE;
+		Deck d = new Deck();
+		HashMap<Color, Integer> map = new HashMap<Color, Integer>();
+		for(Color color : d.colors){
+			map.put(color, 0);
+		}
+		for(Card card : d.deck){
+			map.put(card.getColor(), map.get(card.getColor())+1);
+		}
+		assertEquals((int)map.get(testColor), numberOfCards);
+	}
 
 }
