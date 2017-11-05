@@ -57,9 +57,7 @@ public class TestDeck {
 		Deck orderedDeck = new Deck();
 		Deck shuffledDeck = new Deck();
 		shuffledDeck.shuffle();
-		for(Card c : shuffledDeck.deck){
-			System.out.println(c.getColor() + ", " + c.getValue());
-		}
+
 
 		boolean isEqual = true;
 		for(int i = 0;  i < orderedDeck.deck.size(); i++){

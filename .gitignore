@@ -12,3 +12,6 @@ gradle-app.setting
 
 # macOS attributes files
 .DS_Store
+
+# saved games
+/savedgames/

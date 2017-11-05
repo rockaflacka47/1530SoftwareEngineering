@@ -5,14 +5,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Event implements ActionListener{
+public class Event implements ActionListener, java.io.Serializable{
 
-    private ArrayList<Player> playerList;
+    public ArrayList<Player> playerList;
     private ArrayList<JPanel> tileList;
     private GUI gameBoard;
     private Deck cardDeck;
     private int turnIndex;
-	private JButton button;
+	  private JButton button;
 
 	public void run(){
 		gameBoard = new GUI(this);
@@ -126,4 +126,14 @@ public class Event implements ActionListener{
         System.exit(0);
     }
 
+    //TODO: This should be updated, need to compare with a couple players
+    public boolean equals(Event e) {
+      if (e.playerList == null && this.playerList == null) {
+        return true;
+      } else if (e.playerList.equals(this.playerList)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
 }

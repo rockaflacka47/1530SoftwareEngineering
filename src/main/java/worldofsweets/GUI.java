@@ -1,11 +1,11 @@
 package worldofsweets;
 
 import java.awt.*;
-import java.awt.event.*; 
+import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 
-public class GUI {
+public class GUI implements java.io.Serializable {
 
 	private final JFrame frame;
 	private ArrayList<JPanel> tileList;
@@ -22,7 +22,7 @@ public class GUI {
 		Container pane = frame.getContentPane();
 		pane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		pane.setBackground(GameColor.TABLE);
-		
+
 		JPanel boardPanel = initializeBoardPanel(null);
 		JPanel dataPanel = initializeDataPanel(null, -1, null);
 
@@ -59,7 +59,7 @@ public class GUI {
 		}else{
 			numberOfPlayers = 0;
 		}
-		
+
 		tileList = new ArrayList<JPanel>();
 		JPanel boardPanel = new JPanel();
 		boardPanel.setLayout(new GridLayout(7, 7, 0, 0));
@@ -182,7 +182,7 @@ public class GUI {
 
 			startTile.add(panel);
 		}
-		
+
 		return startTile;
 	}
 
@@ -235,7 +235,7 @@ public class GUI {
 
 			endTile.add(panel);
 		}
-		
+
 		return endTile;
 	}
 
@@ -319,7 +319,7 @@ public class GUI {
 
 		JButton button = new JButton("Draw A Card");
 
-		event.setButton(button); 
+		event.setButton(button);
 		button.addActionListener(event);
 
 		buttonPanel.add(blankPanel);

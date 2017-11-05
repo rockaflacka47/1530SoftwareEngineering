@@ -1,7 +1,7 @@
 package worldofsweets;
 
 import java.awt.Color;
-public class GameColor{
+public class GameColor implements java.io.Serializable  {
 	public static final Color RED = new Color(253,51,65);
 	public static final Color YELLOW = new Color(255,255,12);
 	public static final Color GREEN = new Color(57,247,61);

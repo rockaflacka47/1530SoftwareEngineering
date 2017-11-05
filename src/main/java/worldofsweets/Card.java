@@ -3,11 +3,11 @@ package worldofsweets;
 import javax.swing.*;
 import java.util.*;
 import java.awt.Color;
-public class Card{
+public class Card implements java.io.Serializable {
     private Color color;
     private int value;
     private ImageIcon icon;
-    
+
     public Card(Color color, int value){
         this.color = color;
         this.value = value;

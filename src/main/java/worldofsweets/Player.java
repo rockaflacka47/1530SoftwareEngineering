@@ -3,14 +3,14 @@ package worldofsweets;
 import javax.swing.*;
 import java.awt.*;
 
-public class Player{
+public class Player implements java.io.Serializable {
     private String name;
     private int number;
     private int location;
     private ImageIcon icon;
 
     public Player(){
-        name = null;
+      name = null;
     	number = 0;
     	location = 0;
     	icon = null;
