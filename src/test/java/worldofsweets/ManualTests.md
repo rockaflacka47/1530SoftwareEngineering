@@ -34,3 +34,13 @@
 1.	Enter 4 in "...number of players..." box.
 2.	Press "Draw A Card" button until an icon reaches the end tile, expect "We have a winner..." message.
 3. 	Press "OK" button, expect the game to exit.
+
+### 'Skip Turn' Card
+1.  Enter 4 in "... number of players..." box.
+2.  Press "Draw A Card" button until a 'Skip Turn' card comes up.
+3.  Observe that the player icon did not move on the game board.
+
+### 'Go To Middle' Card
+1.  Enter 4 in "... number of players..." box.
+2.  Press "Draw A Card" button until a 'Go To Middle' card comes up.
+3.  Observe that the player icon moves to the middle of the board (denoted by a green square with a white border).

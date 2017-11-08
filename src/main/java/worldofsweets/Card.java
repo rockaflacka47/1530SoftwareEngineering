@@ -33,11 +33,9 @@ public class Card{
             cardName += "single_";
         }else if(value == 2){
             cardName += "double_";
-        }
-        else if(value == 3){
+        }else if(value == 3){
             cardName += "go_to_middle.png";
-        }
-        else if(value == 4){
+        }else if(value == 4){
             cardName += "skip_turn.png";
         }
 
