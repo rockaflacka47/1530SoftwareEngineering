@@ -20,52 +20,52 @@ public class TestPlayer {
 
 	// check name
 	@Test
-	public void TestName(){
+	public void testName(){
 		assertEquals(p.getName(), name);
 	}
 
 	// check number
 	@Test
-	public void TestNumber(){
+	public void testNumber(){
 		assertEquals(p.getNumber(), number);
 	}
 
 	// check location
 	@Test
-	public void TestLocation(){
+	public void testLocation(){
 		assertEquals(p.getLocation(), location);
 	}
 
 	// check icon
 	@Test
-	public void TestIcon(){
+	public void testIcon(){
 		assertEquals(p.getIcon().getDescription(), icon.getDescription());
 	}
 
 	// change name to Robert
 	@Test
-	public void TestChangeName(){
+	public void testChangeName(){
 		p.setName("Robert");
 		assertEquals(p.getName(), "Robert");
 	}
 
 	// change number to 0
 	@Test
-	public void TestChangeNumber(){
+	public void testChangeNumber(){
 		p.setNumber(0);
 		assertEquals(p.getNumber(), 0);
 	}
 
 	// change location to 0
 	@Test
-	public void TestChangeLocation(){
+	public void testChangeLocation(){
 		p.setLocation(0);
 		assertEquals(p.getLocation(), 0);
 	}
 
 	// change icon to gummybear
 	@Test
-	public void TestChangeIcon(){
+	public void testChangeIcon(){
 		p.setIcon(new ImageIcon("images/tokens/gummybear.png"));
 		assertEquals(p.getIcon().getDescription(), "images/tokens/gummybear.png");
 	}

@@ -84,10 +84,11 @@ public class Event implements ActionListener{
                 player.setLocation(findMoveLocation(player.getLocation(), card));
             }
             else if(card.getValue() == 3){
+                // Go to middle card
                 player.setLocation(24);
             }
             else if(card.getValue() == 4){
-               //nothing needs to be done because of how this method was implemented
+               // Skip turn card
             }
             if(player.getLocation() == 48){
                 gameOver(player, card);

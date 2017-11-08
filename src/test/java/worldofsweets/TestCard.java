@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class TestCard {
 
-	Card c;
+	Card c, middleCard, skipTurnCard;
 	
 	// Creates a blue single card
 	@Before
@@ -16,20 +16,19 @@ public class TestCard {
 
 	// Ensures color is blue
 	@Test
-	public void TestBlueColor(){
+	public void testBlueColor(){
 		assertEquals(c.getColor(), GameColor.BLUE);
 	}
 
 	// Ensures value is 1
 	@Test
-	public void TestValue1(){
+	public void testValue1(){
 		assertEquals(c.getValue(), 1);
 	}
 
 	// Ensures ImageIcon is correct
 	@Test
-	public void TestImageIcon(){
+	public void testImageIcon(){
 		assertEquals(c.getIcon().getDescription(), "images/cards/single_blue.png");
 	}
-
 }
