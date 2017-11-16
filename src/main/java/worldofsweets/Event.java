@@ -4,6 +4,7 @@ import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Timer;
 
 public class Event implements ActionListener{
 
@@ -12,7 +13,9 @@ public class Event implements ActionListener{
     private GUI gameBoard;
     private Deck cardDeck;
     private int turnIndex;
-	private JButton button;
+    private Timer timer;
+    private JButton button;
+    
 
 	public void run(){
 		gameBoard = new GUI(this);
@@ -123,6 +126,7 @@ public class Event implements ActionListener{
     private void gameOver(Player player, Card card){
         button.setEnabled(false);
         gameBoard.redraw(playerList, turnIndex, card);
+        gameBoard.stopTimer();
         JOptionPane.showMessageDialog(null, player.getName() + " has won the game!", "We have a winner...", JOptionPane.PLAIN_MESSAGE);
         System.exit(0);
     }
