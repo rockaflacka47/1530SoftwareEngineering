@@ -23,11 +23,11 @@ public class Deck{
             }
         }
         //Include White
-        for(int i = 0; i < 8; i++){
-            if(i<3)
-                deck.add(new Card(GameColor.WHITE, 3));
+        for(int i = 0; i < 10; i++){
+            if(i<5)
+                deck.add(new Card(GameColor.WHITE, i+3));
             else
-                deck.add(new Card(GameColor.WHITE, 4));
+                deck.add(new Card(GameColor.WHITE, 8));
         }
     }
 

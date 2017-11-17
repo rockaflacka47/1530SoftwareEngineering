@@ -87,10 +87,26 @@ public class Event implements ActionListener{
                 player.setLocation(findMoveLocation(player.getLocation(), card));
             }
             else if(card.getValue() == 3){
-                // Go to middle card
-                player.setLocation(24);
+                // Go to licorice card
+                player.setLocation(10);
             }
             else if(card.getValue() == 4){
+               // go to ice cream card
+               player.setLocation(18);
+            }
+            else if(card.getValue() == 5){
+                // Go to cake card
+                player.setLocation(26);
+            }
+            else if(card.getValue() == 6){
+               // go to soda card
+               player.setLocation(34);
+            }
+            else if(card.getValue() == 7){
+                // Go to pie card
+                player.setLocation(42);
+            }
+            else if(card.getValue() == 8){
                // Skip turn card
             }
             if(player.getLocation() == 48){

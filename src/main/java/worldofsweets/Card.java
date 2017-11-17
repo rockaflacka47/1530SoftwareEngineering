@@ -34,10 +34,19 @@ public class Card{
         }else if(value == 2){
             cardName += "double_";
         }else if(value == 3){
-            cardName += "go_to_middle.png";
+            cardName += "go_to_licorice.png";
         }else if(value == 4){
+            cardName += "go_to_iceCream.png";
+        }else if(value == 5){
+            cardName += "go_to_cake.png";
+        }else if(value == 6){
+            cardName += "go_to_soda.png";
+        }else if(value == 7){
+            cardName += "go_to_pie.png";
+        }else if(value == 8){
             cardName += "skip_turn.png";
         }
+        
 
         if(color == GameColor.RED){
             cardName += "red.png";
