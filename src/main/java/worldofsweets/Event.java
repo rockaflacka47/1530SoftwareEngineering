@@ -94,45 +94,59 @@ public class Event implements ActionListener{
     }
 
 	public void actionPerformed(ActionEvent event){
-		if(event.getSource() == button){
-            Player player = playerList.get(turnIndex);
-            Card card = cardDeck.drawCard();
-            if(card.getValue() == 1 || card.getValue() == 2){
-                player.setLocation(findMoveLocation(player.getLocation(), card));
-            }
-            else if(card.getValue() == 3){
-                // Go to licorice card
-                player.setLocation(10);
-            }
-            else if(card.getValue() == 4){
-               // go to ice cream card
-               player.setLocation(18);
-            }
-            else if(card.getValue() == 5){
-                // Go to cake card
-                player.setLocation(26);
-            }
-            else if(card.getValue() == 6){
-               // go to soda card
-               player.setLocation(34);
-            }
-            else if(card.getValue() == 7){
-                // Go to pie card
-                player.setLocation(42);
-            }
-            else if(card.getValue() == 8){
-               // Skip turn card
-            }
-            if(player.getLocation() == 48){
-                gameOver(player, card);
-            }else{
-                turnIndex++;
-                if(turnIndex >= playerList.size()){
-                    turnIndex = 0;
-                }
-                gameBoard.redraw(playerList, turnIndex, card);
-            }
+        int turns = 0;
+        if(!computerPlayer){
+            turns = 1; 
+        }else{
+            //adds in computers turn
+            turns = 2;
         }
+
+		if(event.getSource() == button){
+            Player player;
+            Card card;
+
+            for(int i = 0; i < turns; i++)
+            {
+                player = playerList.get(turnIndex);
+                card = cardDeck.drawCard();
+                if(card.getValue() == 1 || card.getValue() == 2){
+                    player.setLocation(findMoveLocation(player.getLocation(), card));
+                }
+                else if(card.getValue() == 3){
+                    // Go to licorice card
+                    player.setLocation(10);
+                }
+                else if(card.getValue() == 4){
+                   // go to ice cream card
+                   player.setLocation(18);
+                }
+                else if(card.getValue() == 5){
+                    // Go to cake card
+                    player.setLocation(26);
+                }
+                else if(card.getValue() == 6){
+                   // go to soda card
+                   player.setLocation(34);
+                }
+                else if(card.getValue() == 7){
+                    // Go to pie card
+                    player.setLocation(42);
+                }
+                else if(card.getValue() == 8){
+                   // Skip turn card
+                }
+                if(player.getLocation() == 48){
+                    gameOver(player, card);
+                }else{
+                    turnIndex++;
+                    if(turnIndex >= playerList.size()){
+                        turnIndex = 0;
+                    }
+                    gameBoard.redraw(playerList, turnIndex, card);
+                }
+            }
+    }
 
     		
 	}
