@@ -26,7 +26,12 @@ public class Event implements ActionListener{
         cardDeck.shuffle();
         turnIndex = 0;
 
-        gameBoard.redraw(playerList, turnIndex, null);
+        if(!computerPlayer){
+            gameBoard.redraw(playerList, turnIndex, null);
+        }else{
+            gameBoard.redraw(playerList, 1, null);
+        }
+        
 	}
 
 	public int getNumberOfPlayers(){
@@ -143,7 +148,14 @@ public class Event implements ActionListener{
                     if(turnIndex >= playerList.size()){
                         turnIndex = 0;
                     }
-                    gameBoard.redraw(playerList, turnIndex, card);
+                    System.out.println(playerList + " " + turnIndex);
+                    if(!computerPlayer){
+                      gameBoard.redraw(playerList, turnIndex, card);  
+                  }else{
+                    gameBoard.redraw(playerList, 1, card);
+                  }
+                    
+                    
                 }
             }
     }
