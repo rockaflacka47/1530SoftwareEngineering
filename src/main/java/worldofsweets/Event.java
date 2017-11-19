@@ -4,6 +4,7 @@ import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Timer;
 
 public class Event implements ActionListener, java.io.Serializable{
 
@@ -12,7 +13,13 @@ public class Event implements ActionListener, java.io.Serializable{
     private GUI gameBoard;
     private Deck cardDeck;
     private int turnIndex;
+<<<<<<< HEAD
 	  private JButton button;
+=======
+    private Timer timer;
+    private JButton button;
+    
+>>>>>>> master
 
 	public void run(){
 		gameBoard = new GUI(this);
@@ -84,10 +91,11 @@ public class Event implements ActionListener, java.io.Serializable{
                 player.setLocation(findMoveLocation(player.getLocation(), card));
             }
             else if(card.getValue() == 3){
+                // Go to middle card
                 player.setLocation(24);
             }
             else if(card.getValue() == 4){
-               //nothing needs to be done because of how this method was implemented
+               // Skip turn card
             }
             if(player.getLocation() == 48){
                 gameOver(player, card);
@@ -122,6 +130,7 @@ public class Event implements ActionListener, java.io.Serializable{
     private void gameOver(Player player, Card card){
         button.setEnabled(false);
         gameBoard.redraw(playerList, turnIndex, card);
+        gameBoard.stopTimer();
         JOptionPane.showMessageDialog(null, player.getName() + " has won the game!", "We have a winner...", JOptionPane.PLAIN_MESSAGE);
         System.exit(0);
     }

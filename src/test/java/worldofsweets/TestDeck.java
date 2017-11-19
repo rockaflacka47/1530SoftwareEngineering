@@ -10,7 +10,7 @@ public class TestDeck {
 
 	// Test for the correct number of cards (60)
 	@Test
-	public void TestCardsInDeck(){
+	public void testCardsInDeck(){
 		int numberOfCards = 68;
 		Deck d = new Deck();
 		assertEquals(d.deck.size(), numberOfCards);
@@ -18,7 +18,7 @@ public class TestDeck {
 
 	// Test that deck contains 12 red cards
 	@Test
-	public void Test12Cards_Red(){
+	public void test12Cards_Red(){
 		int numberOfCards = 12;
 		Color testColor = GameColor.RED;
 		Deck d = new Deck();
@@ -34,7 +34,7 @@ public class TestDeck {
 
 	//Test that deck contains 10 singles and 2 double red cards
 	@Test
-	public void TestSinglesAndDoubles_Red(){
+	public void testSinglesAndDoubles_Red(){
 		int numberOfSingleCards = 10;
 		int numberOfDoubleCards = 2;
 		Color testColor = GameColor.RED;
@@ -53,7 +53,7 @@ public class TestDeck {
 
 	//Test that deck is shuffled
 	@Test
-	public void TestShuffled(){
+	public void testShuffled(){
 		Deck orderedDeck = new Deck();
 		Deck shuffledDeck = new Deck();
 		shuffledDeck.shuffle();
@@ -69,9 +69,10 @@ public class TestDeck {
 		assertFalse(isEqual);
 
 	}
+
+	//Test that special cards were added
 	@Test
-	//Test Special Cards added
-	public void TestSpecialCards() {
+	public void testSpecialCards() {
 		int numberOfCards = 8;
 		Color testColor = GameColor.WHITE;
 		Deck d = new Deck();
@@ -84,5 +85,31 @@ public class TestDeck {
 		}
 		assertEquals((int)map.get(testColor), numberOfCards);
 	}
+
+	//Test that 5 'Skip Turn' cards are implemented
+	@Test
+	public void testNumberOfSkipTurnCards(){
+		int numberOfCards = 0;
+		Deck d = new Deck();
+		for(Card c : d.deck){
+			if(c.getValue() == 4){
+				numberOfCards++;
+			}
+		}
+		assertEquals(numberOfCards, 5);
+	} 
+
+	//Test that 3 'Go To Middle' cards are implemented
+	@Test
+	public void testNumberOfGoToMiddleCards(){
+		int numberOfCards = 0;
+		Deck d = new Deck();
+		for(Card c : d.deck){
+			if(c.getValue() == 3){
+				numberOfCards++;
+			}
+		}
+		assertEquals(numberOfCards, 3);
+	} 
 
 }

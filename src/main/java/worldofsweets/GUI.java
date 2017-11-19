@@ -4,30 +4,61 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
+//import java.util.Timer;
+import javax.swing.Timer;
 
 public class GUI implements java.io.Serializable {
 
 	private final JFrame frame;
 	private ArrayList<JPanel> tileList;
 	private Event event;
+	private int ones = 0;
+	private int tens = 0;
+	private int decOnes = 0;
+	private int decTens = 0;
+	JLabel clock = new JLabel();
+	ActionListener updateClockAction = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			if(++decOnes == 10){
+				decOnes = 0;
+				if(++decTens == 6){
+					decTens = 0;
+					if(++ones == 10){
+						ones = 0;
+						tens++;
+					}
+				}
+			}
+			clock.setText(tens + "" + ones + ":" + decTens + "" + decOnes);
+			frame.pack();
+		}
+	};
+	private Timer timer = new Timer(1000, updateClockAction);
 
+	public void stopTimer(){
+		timer.stop();
+	}
 	public GUI(Event event) {
 		this.event = event;
-
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("World of Sweets");
 		frame.setResizable(false);
+		timer.start();
 
 		Container pane = frame.getContentPane();
 		pane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		pane.setBackground(GameColor.TABLE);
+
+
 
 		JPanel boardPanel = initializeBoardPanel(null);
 		JPanel dataPanel = initializeDataPanel(null, -1, null);
 
 		pane.add(boardPanel);
 		pane.add(dataPanel);
+		pane.add(clock);
+
 
 		frame.pack();
 		frame.setVisible(true);
@@ -44,6 +75,7 @@ public class GUI implements java.io.Serializable {
 		pane.removeAll();
 		pane.add(boardPanel);
 		pane.add(dataPanel);
+		pane.add(clock);
 
 		frame.revalidate();
 		frame.repaint();
@@ -117,7 +149,7 @@ public class GUI implements java.io.Serializable {
 				tileList.get(i).setBorder(BorderFactory.createMatteBorder(4, 0, 0, 0, borderColor));
 			}else if(i == 24){
 				// Middle Tile
-				tileList.get(i).setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(4, 0, 4, 0, borderColor), BorderFactory.createMatteBorder(4, 4, 4, 4, Color.WHITE)));
+				tileList.get(i).setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(4, 0, 4, 0, borderColor), BorderFactory.createMatteBorder(8, 8, 8, 8, Color.WHITE)));
 			}else{
 				tileList.get(i).setBorder(BorderFactory.createMatteBorder(4, 0, 4, 0, borderColor));
 			}
