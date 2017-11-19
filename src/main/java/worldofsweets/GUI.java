@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*; 
 import javax.swing.*;
 import java.util.*;
-//import java.util.Timer;
 import javax.swing.Timer;
 
 public class GUI {
@@ -178,9 +177,6 @@ public class GUI {
 			
 			}else if(i == 27){
 				tileList.get(i).setBorder(BorderFactory.createMatteBorder(4, 0, 0, 0, borderColor));
-			}else if(i == 24){
-				// Middle Tile
-				tileList.get(i).setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(4, 0, 4, 0, borderColor), BorderFactory.createMatteBorder(8, 8, 8, 8, Color.WHITE)));
 			}else{
 				tileList.get(i).setBorder(BorderFactory.createMatteBorder(4, 0, 4, 0, borderColor));
 			}
