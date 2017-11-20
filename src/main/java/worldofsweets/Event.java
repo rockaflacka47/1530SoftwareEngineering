@@ -1,6 +1,7 @@
 package worldofsweets;
 
 import java.util.*;
+import java.io.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -15,7 +16,8 @@ public class Event implements ActionListener{
     private int turnIndex;
     private Timer timer;
     private JButton button;
-    private boolean computerPlayer; 
+    private boolean computerPlayer;
+    private Card currCard = null; 
     
 
 	public void run(){
@@ -187,6 +189,98 @@ public class Event implements ActionListener{
         gameBoard.stopTimer();
         JOptionPane.showMessageDialog(null, player.getName() + " has won the game!", "We have a winner...", JOptionPane.PLAIN_MESSAGE);
         System.exit(0);
+    }
+
+
+    //TODO: This should be updated, need to compare with a couple players
+    public boolean equals(Event e) {
+      if (e.playerList == null && this.playerList == null) {
+        return true;
+      } else if (e.playerList.equals(this.playerList)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    public void saveGame() {
+      try {
+         FileOutputStream fileOut =
+         new FileOutputStream("./savedgames/savedPlayers.ser");
+         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+         out.writeObject(playerList);
+         out.close();
+         fileOut.close();
+
+         fileOut = new FileOutputStream("./savedgames/savedDeck.ser");
+         out = new ObjectOutputStream(fileOut);
+         out.writeObject(cardDeck);
+         out.close();
+         fileOut.close();
+
+         //TODO: DALTON MAKE SURE TURN INDEX ISN't INITed to NULL
+         fileOut = new FileOutputStream("./savedgames/savedTurn.ser");
+         out = new ObjectOutputStream(fileOut);
+         out.writeObject(new Integer(turnIndex));
+         out.close();
+         fileOut.close();
+
+         if (currCard != null) {
+           fileOut = new FileOutputStream("./savedgames/savedCurrCard.ser");
+           out = new ObjectOutputStream(fileOut);
+           out.writeObject(currCard);
+           out.close();
+           fileOut.close();
+         }
+      } catch (IOException i) {
+         i.printStackTrace();
+      } catch (NullPointerException n) {
+        //TODO DALTON - take this catch out if you make sure there isn't a null
+        System.out.println("No Game Saved, No one has moved.");
+      }
+      System.out.println("Saved Game");
+    }
+
+    public void loadGame() {
+      try {
+         FileInputStream fileIn =
+         new FileInputStream("./savedgames/savedPlayers.ser");
+         ObjectInputStream in = new ObjectInputStream(fileIn);
+         playerList = (ArrayList<Player>) in.readObject();
+         in.close();
+         fileIn.close();
+
+         fileIn = new FileInputStream("./savedgames/savedDeck.ser");
+         in = new ObjectInputStream(fileIn);
+         cardDeck = (Deck) in.readObject();
+         in.close();
+         fileIn.close();
+
+         fileIn = new FileInputStream("./savedgames/savedTurn.ser");
+         in = new ObjectInputStream(fileIn);
+         turnIndex = (Integer) in.readObject();
+         in.close();
+         fileIn.close();
+
+         //TODO: DALTON: Make sure that turnIndex isn't null but starts at 0 (or 1 and you can change this)
+         if (turnIndex != 0) {
+           fileIn = new FileInputStream("./savedgames/savedCurrCard.ser");
+           in = new ObjectInputStream(fileIn);
+           currCard = (Card) in.readObject();
+           in.close();
+           fileIn.close();
+         }
+         gameBoard.redraw(playerList, turnIndex, currCard);
+
+      } catch (FileNotFoundException i) {
+        //TODO add prompt to UI
+         System.out.println("No games to load");
+      } catch (Exception e) {
+        e.printStackTrace();
+        System.out.println("Other Exception");
+      }
+      System.out.println("Loaded Game");
+
     }
 
 }

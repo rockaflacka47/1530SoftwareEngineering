@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.util.*;
 import javax.swing.Timer;
 
-public class GUI {
+public class GUI implements ActionListener{
 
 	private final JFrame frame;
 	private ArrayList<JPanel> tileList;
@@ -59,6 +59,7 @@ public class GUI {
 		pane.add(boardPanel);
 		pane.add(dataPanel);
 
+		frame.setJMenuBar(createJMenuBar());
 		frame.pack();
 		frame.setVisible(true);
 	}
@@ -448,6 +449,36 @@ public class GUI {
 		}
 
 		return keyPanel;
+	}
+
+
+	// JMenu Bar
+
+	private JMenuBar createJMenuBar(){
+		JMenuBar menuBar = new JMenuBar();
+		JMenu menu = new JMenu("File");
+		JMenuItem saveItem = new JMenuItem("Save");
+		JMenuItem loadItem = new JMenuItem("Load");
+
+		saveItem.addActionListener(this);
+		loadItem.addActionListener(this);
+
+		menu.add(saveItem);
+		menu.add(loadItem);
+		menuBar.add(menu);
+
+		return menuBar;
+	}
+
+	public void actionPerformed(ActionEvent e){
+		String action = e.getActionCommand();
+		if(action.equals("Save")){
+			event.saveGame();
+		}else if(action.equals("Load")){
+			event.loadGame();
+		}else{
+			System.out.println("Error in menu");
+		}
 	}
 
 }
