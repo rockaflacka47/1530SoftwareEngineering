@@ -45,10 +45,6 @@ public class Event implements ActionListener, Serializable{
     public void load(){
         gameBoard = new GUI(this);
 
-        for(Player p : playerList){
-            System.out.println(p.getLocation());
-        }
-
         if(!computerPlayer){
             gameBoard.redraw(playerList, turnIndex, null);
         }else{
@@ -143,6 +139,7 @@ public class Event implements ActionListener, Serializable{
                 card = cardDeck.drawCard();
                 if(card.getValue() == 1 || card.getValue() == 2){
                     player.setLocation(findMoveLocation(player.getLocation(), card));
+                    System.out.println("PlayerLocation: " + player.getLocation());
                 }
                 else if(card.getValue() == 3){
                     // Go to licorice card
@@ -189,12 +186,17 @@ public class Event implements ActionListener, Serializable{
         int value = card.getValue();
         int counter = 0;
 
+        System.out.println("CardColor: " + color + "\tCardValue: " + value);
+
         for(int i = location+1; i < tileList.size(); i++){
             Color panelColor = tileList.get(i).getBackground();
-            if(color == panelColor){
+            System.out.println("PanelColor: " + panelColor);
+            if(color.toString().equals(panelColor.toString())){
                 counter++;
+                System.out.println("INCREMENTED COUNTER");
             }
             if(counter == value){
+                System.out.println("RETURNING");
                 return i;
             }
         }
