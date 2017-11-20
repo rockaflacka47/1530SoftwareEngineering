@@ -150,18 +150,13 @@ public class Event implements ActionListener{
                         turnIndex = 0;
                     }
                     if(!computerPlayer){
-                      gameBoard.redraw(playerList, turnIndex, card);  
-                  }else{
-                    gameBoard.redraw(playerList, 1, card);
-                  }
-                    
-
+                        gameBoard.redraw(playerList, turnIndex, card);  
+                    }else{
+                        gameBoard.redraw(playerList, 1, card);
+                    }
                 }
             }
-    }
-
-
-    		
+        }	
 	}
 
     private int findMoveLocation(int location, Card card){
