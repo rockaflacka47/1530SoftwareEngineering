@@ -28,6 +28,7 @@ public class GUI {
 					}
 				}
 			}
+			frame.setTitle("World of Sweets - " + tens + "" + ones + ":" + decTens + "" + decOnes);
 			clock.setText(tens + "" + ones + ":" + decTens + "" + decOnes);
 			frame.pack();
 		}
@@ -41,23 +42,20 @@ public class GUI {
 		this.event = event;
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("World of Sweets");
+		frame.setTitle("World of Sweets - 0:00");
 		frame.setResizable(false);
 		timer.start();
 
 		Container pane = frame.getContentPane();
+
 		pane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		pane.setBackground(GameColor.TABLE);
-		
-		
         
 		JPanel boardPanel = initializeBoardPanel(null);
 		JPanel dataPanel = initializeDataPanel(null, -1, null);
 
 		pane.add(boardPanel);
 		pane.add(dataPanel);
-		pane.add(clock);
-		
 
 		frame.pack();
 		frame.setVisible(true);
@@ -74,7 +72,6 @@ public class GUI {
 		pane.removeAll();
 		pane.add(boardPanel);
 		pane.add(dataPanel);
-		pane.add(clock);
 
 		frame.revalidate();
 		frame.repaint();
@@ -99,6 +96,7 @@ public class GUI {
 
 		tileList.add(createStartTile("Start", playerList));
 		for(int i = 0; i < 47; i++){
+
 			tileList.add(createColorTile(i, playerList));
 		}
 		tileList.add(createEndTile("Grandma's House", playerList));
@@ -123,16 +121,16 @@ public class GUI {
 			if(i == 7){
 				tileList.get(i).setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, borderColor));
 			}else if(i == 10){
-				ImageIcon ic = new ImageIcon("images/cards/go_to_licorice.png");
+				ImageIcon ic = new ImageIcon("images/specialSquares/licorice.png");
 				Image image = ic.getImage();
-				image = image.getScaledInstance(100, 90, java.awt.Image.SCALE_SMOOTH);
+				image = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
 				ic = new ImageIcon(image);
 				JLabel temp = new JLabel(ic);
 				tileList.get(i).setLayout(new GridLayout());
-				tileList.get(i).setBackground(GameColor.TRANSPARENT);
+				tileList.get(i).setBackground(GameColor.WHITE);
 				tileList.get(i).add(temp);
-				
-				
+				tileList.get(i).setBorder(BorderFactory.createMatteBorder(4, 0, 4, 0, borderColor));
+				tileList.get(i).setBorder(BorderFactory.createMatteBorder(4, 0, 4, 0, borderColor));
 			}else if(i == 13){
 				tileList.get(i).setBorder(BorderFactory.createMatteBorder(4, 0, 0, 0, borderColor));
 			}else{
@@ -145,15 +143,15 @@ public class GUI {
 			if(i == 14){
 				tileList.get(i).setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, borderColor));
 			}else if(i == 18){
-				ImageIcon ic = new ImageIcon("images/cards/go_to_iceCream.png");
+				ImageIcon ic = new ImageIcon("images/specialSquares/iceCream.png");
 				Image image = ic.getImage();
-				image = image.getScaledInstance(100, 90, java.awt.Image.SCALE_SMOOTH);
+				image = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
 				ic = new ImageIcon(image);
 				JLabel temp = new JLabel(ic);
 				tileList.get(i).setLayout(new GridLayout());
-				tileList.get(i).setBackground(GameColor.TRANSPARENT);
+				tileList.get(i).setBackground(GameColor.WHITE);
 				tileList.get(i).add(temp);
-			
+				tileList.get(i).setBorder(BorderFactory.createMatteBorder(4, 0, 4, 0, borderColor));			
 			}else if(i == 20){
 				tileList.get(i).setBorder(BorderFactory.createMatteBorder(4, 0, 0, 0, borderColor));
 			}else{
@@ -166,15 +164,15 @@ public class GUI {
 			if(i == 21){
 				tileList.get(i).setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, borderColor));
 			}else if(i == 26){
-				ImageIcon ic = new ImageIcon("images/cards/go_to_cake.png");
+				ImageIcon ic = new ImageIcon("images/specialSquares/cake.png");
 				Image image = ic.getImage();
-				image = image.getScaledInstance(100, 90, java.awt.Image.SCALE_SMOOTH);
+				image = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
 				ic = new ImageIcon(image);
 				JLabel temp = new JLabel(ic);
 				tileList.get(i).setLayout(new GridLayout());
-				tileList.get(i).setBackground(GameColor.TRANSPARENT);
+				tileList.get(i).setBackground(GameColor.WHITE);
 				tileList.get(i).add(temp);
-			
+				tileList.get(i).setBorder(BorderFactory.createMatteBorder(4, 0, 4, 0, borderColor));
 			}else if(i == 27){
 				tileList.get(i).setBorder(BorderFactory.createMatteBorder(4, 0, 0, 0, borderColor));
 			}else{
@@ -187,13 +185,13 @@ public class GUI {
 			if(i == 28){
 				tileList.get(i).setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, borderColor));
 			}else if(i == 34){
-				ImageIcon ic = new ImageIcon("images/cards/go_to_soda.png");
+				ImageIcon ic = new ImageIcon("images/specialSquares/soda.png");
 				Image image = ic.getImage();
-				image = image.getScaledInstance(100, 90, java.awt.Image.SCALE_SMOOTH);
+				image = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
 				ic = new ImageIcon(image);
 				JLabel temp = new JLabel(ic);
 				tileList.get(i).setLayout(new GridLayout());
-				tileList.get(i).setBackground(GameColor.TRANSPARENT);
+				tileList.get(i).setBackground(GameColor.WHITE);
 				tileList.get(i).add(temp);
 				tileList.get(i).setBorder(BorderFactory.createMatteBorder(4, 0, 0, 0, borderColor));
 			}else{
@@ -215,13 +213,13 @@ public class GUI {
 		}
 		for(int i = 42; i < 49; i++){
 			if(i == 42){
-				ImageIcon ic = new ImageIcon("images/cards/go_to_pie.png");
+				ImageIcon ic = new ImageIcon("images/specialSquares/pie.png");
 				Image image = ic.getImage();
-				image = image.getScaledInstance(100, 95, java.awt.Image.SCALE_SMOOTH);
+				image = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
 				ic = new ImageIcon(image);
 				JLabel temp = new JLabel(ic);
 				tileList.get(i).setLayout(new GridLayout());
-				tileList.get(i).setBackground(GameColor.TRANSPARENT);
+				tileList.get(i).setBackground(GameColor.WHITE);
 				tileList.get(i).add(temp);
 				tileList.get(i).setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, borderColor));
 			}else{
