@@ -99,6 +99,7 @@ public class Event implements ActionListener{
     }
 
 	public void actionPerformed(ActionEvent event){
+
         int turns = 0;
         if(!computerPlayer){
             turns = 1; 
@@ -154,10 +155,11 @@ public class Event implements ActionListener{
                     gameBoard.redraw(playerList, 1, card);
                   }
                     
-                    
+
                 }
             }
     }
+
 
     		
 	}
