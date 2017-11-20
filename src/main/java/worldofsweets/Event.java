@@ -43,13 +43,15 @@ public class Event implements ActionListener, Serializable{
 	}
 
     public void load(){
-        gameBoard = new GUI(this);
+        gameBoard = new GUI(this, gameBoard.customActionListener);
 
         if(!computerPlayer){
             gameBoard.redraw(playerList, turnIndex, null);
         }else{
             gameBoard.redraw(playerList, 1, null);
         }
+
+        gameBoard.startTimer();
     }
 
 	public int getNumberOfPlayers(){
@@ -58,7 +60,6 @@ public class Event implements ActionListener, Serializable{
             String stringInput = JOptionPane.showInputDialog(null, "Please enter the number of players (1-4):", "World of Sweets", JOptionPane.PLAIN_MESSAGE);
             try{
                 if(stringInput == null){
-
                     return -1;
                 }
                 numberOfPlayers = Integer.parseInt(stringInput);
@@ -139,7 +140,6 @@ public class Event implements ActionListener, Serializable{
                 card = cardDeck.drawCard();
                 if(card.getValue() == 1 || card.getValue() == 2){
                     player.setLocation(findMoveLocation(player.getLocation(), card));
-                    System.out.println("PlayerLocation: " + player.getLocation());
                 }
                 else if(card.getValue() == 3){
                     // Go to licorice card
@@ -186,17 +186,12 @@ public class Event implements ActionListener, Serializable{
         int value = card.getValue();
         int counter = 0;
 
-        System.out.println("CardColor: " + color + "\tCardValue: " + value);
-
         for(int i = location+1; i < tileList.size(); i++){
             Color panelColor = tileList.get(i).getBackground();
-            System.out.println("PanelColor: " + panelColor);
             if(color.toString().equals(panelColor.toString())){
                 counter++;
-                System.out.println("INCREMENTED COUNTER");
             }
             if(counter == value){
-                System.out.println("RETURNING");
                 return i;
             }
         }

@@ -16,7 +16,7 @@ public class GUI implements ActionListener, Serializable{
 	
 	JLabel clock = new JLabel();
 	CustomActionListener customActionListener;
-	private Timer timer;
+	Timer timer;
 	
 	public void stopTimer(){
 		timer.stop();
@@ -31,8 +31,9 @@ public class GUI implements ActionListener, Serializable{
 		frame.setTitle("World of Sweets");
 		frame.setResizable(false);
 
-		customActionListener = new CustomActionListener(frame, clock);
+		customActionListener = new CustomActionListener(frame, clock);	
 		timer = new Timer(1000, customActionListener);
+
 
 		Container pane = frame.getContentPane();
 
@@ -49,6 +50,34 @@ public class GUI implements ActionListener, Serializable{
 		frame.pack();
 		frame.setVisible(true);
 	}
+
+	public GUI(Event event, CustomActionListener customActionListener) {
+		this.event = event;
+		frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("World of Sweets");
+		frame.setResizable(false);
+
+		customActionListener.setFrame(frame);
+		timer = new Timer(1000, customActionListener);
+
+
+		Container pane = frame.getContentPane();
+
+		pane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		pane.setBackground(GameColor.TABLE);
+        
+		JPanel boardPanel = initializeBoardPanel(null);
+		JPanel dataPanel = initializeDataPanel(null, -1, null);
+
+		pane.add(boardPanel);
+		pane.add(dataPanel);
+
+		frame.setJMenuBar(createJMenuBar());
+		frame.pack();
+		frame.setVisible(true);
+	}
+
 
 	public void setVisible(boolean isVisible){
 		frame.setVisible(isVisible);

@@ -9,7 +9,7 @@ import java.io.*;
 public class CustomActionListener implements ActionListener, Serializable{
 	private static final long serialVersionUID = 1234567897L;
 	JLabel clock = new JLabel();
-	private final JFrame frame;
+	private JFrame frame;
 	private int ones = 0;
 	private int tens = 0;
 	private int decOnes = 0;
@@ -20,19 +20,23 @@ public class CustomActionListener implements ActionListener, Serializable{
 		this.clock = clock;
 	}
 
+	public void setFrame(JFrame frame){
+		this.frame = frame;
+	}
+
 	public void actionPerformed(ActionEvent e) {
-			if(++decOnes == 10){
-				decOnes = 0;
-				if(++decTens == 6){
-					decTens = 0;
-					if(++ones == 10){
-						ones = 0;
-						tens++;
-					}
+		if(++decOnes == 10){
+			decOnes = 0;
+			if(++decTens == 6){
+				decTens = 0;
+				if(++ones == 10){
+					ones = 0;
+					tens++;
 				}
 			}
-			frame.setTitle("World of Sweets - " + tens + "" + ones + ":" + decTens + "" + decOnes);
-			clock.setText(tens + "" + ones + ":" + decTens + "" + decOnes);
-			frame.pack();
 		}
+		frame.setTitle("World of Sweets - " + tens + "" + ones + ":" + decTens + "" + decOnes);
+		clock.setText(tens + "" + ones + ":" + decTens + "" + decOnes);
+		frame.pack();
+	}
 }
