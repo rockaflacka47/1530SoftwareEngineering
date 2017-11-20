@@ -1,13 +1,15 @@
 package worldofsweets;
 
 import java.util.*;
+import java.io.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Timer;
 
-public class Event implements ActionListener{
+public class Event implements ActionListener, Serializable{
 
+    private static final long serialVersionUID = 1234567899L;
     private ArrayList<Player> playerList;
     private ArrayList<JPanel> tileList;
     private GUI gameBoard;
@@ -15,49 +17,69 @@ public class Event implements ActionListener{
     private int turnIndex;
     private Timer timer;
     private JButton button;
-    private boolean computerPlayer; 
+    private boolean computerPlayer;
     
 
 	public void run(){
 		gameBoard = new GUI(this);
 		int numberOfPlayers = getNumberOfPlayers();
         playerList = createPlayers(numberOfPlayers);
-        cardDeck = new Deck();
-        cardDeck.shuffle();
-        turnIndex = 0;
+
+        if(numberOfPlayers > 0 && numberOfPlayers < 5){
+            cardDeck = new Deck();
+            cardDeck.shuffle();
+            turnIndex = 0;
+
+            if(!computerPlayer){
+                gameBoard.redraw(playerList, turnIndex, null);
+            }else{
+                gameBoard.redraw(playerList, 1, null);
+            }
+        }else{
+            button.setEnabled(false);
+        }
+        
+        
+	}
+
+    public void load(){
+        gameBoard = new GUI(this, gameBoard.customActionListener);
 
         if(!computerPlayer){
             gameBoard.redraw(playerList, turnIndex, null);
         }else{
             gameBoard.redraw(playerList, 1, null);
         }
-        
-	}
+
+        gameBoard.startTimer();
+    }
 
 	public int getNumberOfPlayers(){
         int numberOfPlayers;
         while(true){
             String stringInput = JOptionPane.showInputDialog(null, "Please enter the number of players (1-4):", "World of Sweets", JOptionPane.PLAIN_MESSAGE);
-            if(stringInput == null){
-                System.exit(0);
-            }
             try{
+                if(stringInput == null){
+                    return -1;
+                }
                 numberOfPlayers = Integer.parseInt(stringInput);
             }catch(NumberFormatException e){
                 error("The value entered was not a valid integer.", false);
                 continue;
             }
+            
             if(numberOfPlayers >= 2 && numberOfPlayers <= 4){
                 computerPlayer = false;
+                gameBoard.startTimer();
                 return numberOfPlayers;
             }
             else if(numberOfPlayers == 1){
                 computerPlayer = true;
+                gameBoard.startTimer();
                 return 2;
-
             }
             else{
-                error("The value entered was not between 2 and 4, inclusive.", false);
+                error("The value entered was not between 1 and 4, inclusive.", false);
                 continue;
             }
         }
@@ -166,7 +188,7 @@ public class Event implements ActionListener{
 
         for(int i = location+1; i < tileList.size(); i++){
             Color panelColor = tileList.get(i).getBackground();
-            if(color == panelColor){
+            if(color.toString().equals(panelColor.toString())){
                 counter++;
             }
             if(counter == value){

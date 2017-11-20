@@ -2,8 +2,10 @@ package worldofsweets;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
 
-public class Player{
+public class Player implements Serializable{
+	private static final long serialVersionUID = 1234567890L;
     private String name;
     private int number;
     private int location;

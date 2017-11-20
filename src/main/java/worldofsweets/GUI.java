@@ -5,46 +5,35 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 import javax.swing.Timer;
+import java.io.*;
 
-public class GUI {
+public class GUI implements ActionListener, Serializable{
 
+	private static final long serialVersionUID = 1234567898L;
 	private final JFrame frame;
 	private ArrayList<JPanel> tileList;
 	private Event event;
-	private int ones = 0;
-	private int tens = 0;
-	private int decOnes = 0;
-	private int decTens = 0;
+	
 	JLabel clock = new JLabel();
-	ActionListener updateClockAction = new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			if(++decOnes == 10){
-				decOnes = 0;
-				if(++decTens == 6){
-					decTens = 0;
-					if(++ones == 10){
-						ones = 0;
-						tens++;
-					}
-				}
-			}
-			frame.setTitle("World of Sweets - " + tens + "" + ones + ":" + decTens + "" + decOnes);
-			clock.setText(tens + "" + ones + ":" + decTens + "" + decOnes);
-			frame.pack();
-		}
-	};
-	private Timer timer = new Timer(1000, updateClockAction);
+	CustomActionListener customActionListener;
+	Timer timer;
 	
 	public void stopTimer(){
 		timer.stop();
+	}
+	public void startTimer(){
+		timer.start();
 	}
 	public GUI(Event event) {
 		this.event = event;
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("World of Sweets - 0:00");
+		frame.setTitle("World of Sweets");
 		frame.setResizable(false);
-		timer.start();
+
+		customActionListener = new CustomActionListener(frame, clock);	
+		timer = new Timer(1000, customActionListener);
+
 
 		Container pane = frame.getContentPane();
 
@@ -57,8 +46,41 @@ public class GUI {
 		pane.add(boardPanel);
 		pane.add(dataPanel);
 
+		frame.setJMenuBar(createJMenuBar());
 		frame.pack();
 		frame.setVisible(true);
+	}
+
+	public GUI(Event event, CustomActionListener customActionListener) {
+		this.event = event;
+		frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("World of Sweets");
+		frame.setResizable(false);
+
+		customActionListener.setFrame(frame);
+		timer = new Timer(1000, customActionListener);
+
+
+		Container pane = frame.getContentPane();
+
+		pane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		pane.setBackground(GameColor.TABLE);
+        
+		JPanel boardPanel = initializeBoardPanel(null);
+		JPanel dataPanel = initializeDataPanel(null, -1, null);
+
+		pane.add(boardPanel);
+		pane.add(dataPanel);
+
+		frame.setJMenuBar(createJMenuBar());
+		frame.pack();
+		frame.setVisible(true);
+	}
+
+
+	public void setVisible(boolean isVisible){
+		frame.setVisible(isVisible);
 	}
 
 	public void redraw(ArrayList<Player> playerList, int turnIndex, Card card){
@@ -446,6 +468,36 @@ public class GUI {
 		}
 
 		return keyPanel;
+	}
+
+
+	// JMenu Bar
+
+	private JMenuBar createJMenuBar(){
+		JMenuBar menuBar = new JMenuBar();
+		JMenu menu = new JMenu("File");
+		JMenuItem saveItem = new JMenuItem("Save");
+		JMenuItem loadItem = new JMenuItem("Load");
+
+		saveItem.addActionListener(this);
+		loadItem.addActionListener(this);
+
+		menu.add(saveItem);
+		menu.add(loadItem);
+		menuBar.add(menu);
+
+		return menuBar;
+	}
+
+	public void actionPerformed(ActionEvent e){
+		String action = e.getActionCommand();
+		if(action.equals("Save")){
+			Driver.saveGame();
+		}else if(action.equals("Load")){
+			Driver.loadGame(this);
+		}else{
+			System.out.println("Error in menu");
+		}
 	}
 
 }
