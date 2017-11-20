@@ -5,35 +5,18 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 import javax.swing.Timer;
+import java.io.*;
 
-public class GUI implements ActionListener{
+public class GUI implements ActionListener, Serializable{
 
+	private static final long serialVersionUID = 1234567898L;
 	private final JFrame frame;
 	private ArrayList<JPanel> tileList;
 	private Event event;
-	private int ones = 0;
-	private int tens = 0;
-	private int decOnes = 0;
-	private int decTens = 0;
+	
 	JLabel clock = new JLabel();
-	ActionListener updateClockAction = new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			if(++decOnes == 10){
-				decOnes = 0;
-				if(++decTens == 6){
-					decTens = 0;
-					if(++ones == 10){
-						ones = 0;
-						tens++;
-					}
-				}
-			}
-			frame.setTitle("World of Sweets - " + tens + "" + ones + ":" + decTens + "" + decOnes);
-			clock.setText(tens + "" + ones + ":" + decTens + "" + decOnes);
-			frame.pack();
-		}
-	};
-	private Timer timer = new Timer(1000, updateClockAction);
+	CustomActionListener customActionListener;
+	private Timer timer;
 	
 	public void stopTimer(){
 		timer.stop();
@@ -47,6 +30,9 @@ public class GUI implements ActionListener{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("World of Sweets");
 		frame.setResizable(false);
+
+		customActionListener = new CustomActionListener(frame, clock);
+		timer = new Timer(1000, customActionListener);
 
 		Container pane = frame.getContentPane();
 
@@ -62,6 +48,10 @@ public class GUI implements ActionListener{
 		frame.setJMenuBar(createJMenuBar());
 		frame.pack();
 		frame.setVisible(true);
+	}
+
+	public void setVisible(boolean isVisible){
+		frame.setVisible(isVisible);
 	}
 
 	public void redraw(ArrayList<Player> playerList, int turnIndex, Card card){
@@ -473,9 +463,9 @@ public class GUI implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 		String action = e.getActionCommand();
 		if(action.equals("Save")){
-			event.saveGame();
+			Driver.saveGame();
 		}else if(action.equals("Load")){
-			event.loadGame();
+			Driver.loadGame(this);
 		}else{
 			System.out.println("Error in menu");
 		}

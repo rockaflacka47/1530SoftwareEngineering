@@ -3,7 +3,10 @@ package worldofsweets;
 import javax.swing.*;
 import java.util.*;
 import java.awt.Color;
-public class Card{
+import java.io.*; 
+
+public class Card implements Serializable{
+    private static final long serialVersionUID = 1234567892L;
     private Color color;
     private int value;
     private ImageIcon icon;

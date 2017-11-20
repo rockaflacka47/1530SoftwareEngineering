@@ -2,8 +2,10 @@ package worldofsweets;
 
 import java.awt.Color;
 import java.util.*;
+import java.io.*;
 
-public class Deck{
+public class Deck implements Serializable{
+    private static final long serialVersionUID = 1234567891L;
     ArrayList<Card> deck = new ArrayList<Card>();
     Color [] colors = {GameColor.RED, GameColor.YELLOW, GameColor.BLUE, GameColor.GREEN, GameColor.ORANGE, GameColor.WHITE};
     int drawNum = 0;
