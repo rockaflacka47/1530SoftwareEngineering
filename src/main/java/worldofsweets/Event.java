@@ -148,7 +148,6 @@ public class Event implements ActionListener{
                     if(turnIndex >= playerList.size()){
                         turnIndex = 0;
                     }
-                    System.out.println(playerList + " " + turnIndex);
                     if(!computerPlayer){
                       gameBoard.redraw(playerList, turnIndex, card);  
                   }else{
