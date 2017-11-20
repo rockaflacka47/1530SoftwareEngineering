@@ -1,6 +1,7 @@
 package worldofsweets;
 
 import java.util.*;
+import java.io.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -15,6 +16,7 @@ public class Event implements ActionListener {
     private int turnIndex;
     private Timer timer;
     private JButton button;
+    private Card currCard = null;
 
 	public void run(){
 		gameBoard = new GUI(this);
@@ -82,6 +84,7 @@ public class Event implements ActionListener {
 		if(event.getSource() == button){
             Player player = playerList.get(turnIndex);
             Card card = cardDeck.drawCard();
+            currCard = card;
             if(card.getValue() == 1 || card.getValue() == 2){
                 player.setLocation(findMoveLocation(player.getLocation(), card));
             }
@@ -105,6 +108,7 @@ public class Event implements ActionListener {
 	}
 
     private int findMoveLocation(int location, Card card){
+        System.out.println(location +" and card " + card.getValue());
         Color color = card.getColor();
         int value = card.getValue();
         int counter = 0;
@@ -142,30 +146,80 @@ public class Event implements ActionListener {
     }
 
     //Don't touch yet
-    public static void saveGame() {
-      // try {
-      //    FileOutputStream fileOut =
-      //    new FileOutputStream("./savedgames/saveGame.ser");
-      //    ObjectOutputStream out = new ObjectOutputStream(fileOut);
-      //    out.writeObject(e);
-      //    out.close();
-      //    fileOut.close();
-      // } catch (IOException i) {
-      //    i.printStackTrace();
-      }
+    public void saveGame() {
+      try {
+         FileOutputStream fileOut =
+         new FileOutputStream("./savedgames/savedPlayers.ser");
+         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+         out.writeObject(playerList);
+         out.close();
+         fileOut.close();
 
-    public static void loadGame() {
-      // Event e;
-      // try {
-      //    FileInputStream fileIn = new FileInputStream("./savedgames/saveGame.ser");
-      //    ObjectInputStream in = new ObjectInputStream(fileIn);
-      //    e = (Event) in.readObject();
-      //    in.close();
-      //    fileIn.close();
-      //    return e;
-      // } catch (Exception i) {
-      //    i.printStackTrace();
-      //    return null;
+         fileOut = new FileOutputStream("./savedgames/savedDeck.ser");
+         out = new ObjectOutputStream(fileOut);
+         out.writeObject(cardDeck);
+         out.close();
+         fileOut.close();
+
+         fileOut = new FileOutputStream("./savedgames/savedTurn.ser");
+         out = new ObjectOutputStream(fileOut);
+         out.writeObject(new Integer(turnIndex));
+         out.close();
+         fileOut.close();
+
+         fileOut = new FileOutputStream("./savedgames/savedCurrCard.ser");
+         out = new ObjectOutputStream(fileOut);
+         out.writeObject(currCard);
+         out.close();
+         fileOut.close();
+      } catch (IOException i) {
+         i.printStackTrace();
+      } catch (NullPointerException n) {
+        //TODO add a prompt
+        System.out.println("No Game Saved, No one has moved.");
       }
-  
+      System.out.println("Saved Game");
+    }
+
+    public void loadGame() {
+      try {
+         FileInputStream fileIn =
+         new FileInputStream("./savedgames/savedPlayers.ser");
+         ObjectInputStream in = new ObjectInputStream(fileIn);
+         playerList = (ArrayList<Player>) in.readObject();
+         in.close();
+         fileIn.close();
+
+         fileIn = new FileInputStream("./savedgames/savedDeck.ser");
+         in = new ObjectInputStream(fileIn);
+         cardDeck = (Deck) in.readObject();
+         in.close();
+         fileIn.close();
+
+         fileIn = new FileInputStream("./savedgames/savedTurn.ser");
+         in = new ObjectInputStream(fileIn);
+         turnIndex = (Integer) in.readObject();
+         in.close();
+         fileIn.close();
+
+         fileIn = new FileInputStream("./savedgames/savedCurrCard.ser");
+         in = new ObjectInputStream(fileIn);
+         currCard = (Card) in.readObject();
+         in.close();
+         fileIn.close();
+
+         gameBoard.redraw(playerList, turnIndex, currCard);
+
+      } catch (FileNotFoundException i) {
+          //TODO add prompt
+         System.out.println("No games to load");
+      } catch (Exception e) {
+        e.printStackTrace();
+        System.out.println("Other Exception");
+      }
+      System.out.println("Loaded Game");
+
+    }
+
+
 }

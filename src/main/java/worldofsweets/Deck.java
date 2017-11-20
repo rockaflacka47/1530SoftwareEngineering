@@ -3,7 +3,7 @@ package worldofsweets;
 import java.awt.Color;
 import java.util.*;
 
-public class Deck {
+public class Deck implements java.io.Serializable {
     ArrayList<Card> deck = new ArrayList<Card>();
     Color [] colors = {GameColor.RED, GameColor.YELLOW, GameColor.BLUE, GameColor.GREEN, GameColor.ORANGE, GameColor.WHITE};
     int drawNum = 0;

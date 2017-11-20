@@ -443,10 +443,8 @@ public class GUI{
 			 String action = e.getActionCommand();
 			 if(action.equals("Save")) {
 				 event.saveGame();
-				 System.out.println("Game Saved");
 			 } else if (action.equals("Load")) {
 				 event.loadGame();
-				 System.out.println("Game Loaded");
 			 } else {
 				 System.out.println("Error in menu");
 			 }
