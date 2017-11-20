@@ -11,7 +11,7 @@ public class TestDeck {
 	// Test for the correct number of cards (60)
 	@Test
 	public void testCardsInDeck(){
-		int numberOfCards = 68;
+		int numberOfCards = 70;
 		Deck d = new Deck();
 		assertEquals(d.deck.size(), numberOfCards);
 	}
@@ -75,7 +75,7 @@ public class TestDeck {
 	//Test that special cards were added
 	@Test
 	public void testSpecialCards() {
-		int numberOfCards = 8;
+		int numberOfCards = 10;
 		Color testColor = GameColor.WHITE;
 		Deck d = new Deck();
 		HashMap<Color, Integer> map = new HashMap<Color, Integer>();
@@ -94,7 +94,7 @@ public class TestDeck {
 		int numberOfCards = 0;
 		Deck d = new Deck();
 		for(Card c : d.deck){
-			if(c.getValue() == 4){
+			if(c.getValue() == 8){
 				numberOfCards++;
 			}
 		}
@@ -103,15 +103,15 @@ public class TestDeck {
 
 	//Test that 3 'Go To Middle' cards are implemented
 	@Test
-	public void testNumberOfGoToMiddleCards(){
+	public void testNumberOfGoToCards(){
 		int numberOfCards = 0;
 		Deck d = new Deck();
 		for(Card c : d.deck){
-			if(c.getValue() == 3){
+			if(c.getValue() > 2 && c.getValue() < 8){
 				numberOfCards++;
 			}
 		}
-		assertEquals(numberOfCards, 3);
+		assertEquals(numberOfCards, 5);
 	} 
 
 }
