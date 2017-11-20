@@ -16,7 +16,6 @@ public class Event implements ActionListener {
     private Timer timer;
     private JButton button;
 
-
 	public void run(){
 		gameBoard = new GUI(this);
 		int numberOfPlayers = getNumberOfPlayers();
@@ -141,4 +140,32 @@ public class Event implements ActionListener {
         return false;
       }
     }
+
+    //Don't touch yet
+    public static void saveGame() {
+      // try {
+      //    FileOutputStream fileOut =
+      //    new FileOutputStream("./savedgames/saveGame.ser");
+      //    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+      //    out.writeObject(e);
+      //    out.close();
+      //    fileOut.close();
+      // } catch (IOException i) {
+      //    i.printStackTrace();
+      }
+
+    public static void loadGame() {
+      // Event e;
+      // try {
+      //    FileInputStream fileIn = new FileInputStream("./savedgames/saveGame.ser");
+      //    ObjectInputStream in = new ObjectInputStream(fileIn);
+      //    e = (Event) in.readObject();
+      //    in.close();
+      //    fileIn.close();
+      //    return e;
+      // } catch (Exception i) {
+      //    i.printStackTrace();
+      //    return null;
+      }
+  
 }

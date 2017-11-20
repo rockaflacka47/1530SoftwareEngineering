@@ -442,10 +442,10 @@ public class GUI{
 		 public void actionPerformed(ActionEvent e) {
 			 String action = e.getActionCommand();
 			 if(action.equals("Save")) {
-				 Driver.saveGame(event);
+				 event.saveGame();
 				 System.out.println("Game Saved");
 			 } else if (action.equals("Load")) {
-				 Driver.loadGame();
+				 event.loadGame();
 				 System.out.println("Game Loaded");
 			 } else {
 				 System.out.println("Error in menu");
