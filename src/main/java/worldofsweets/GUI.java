@@ -7,7 +7,7 @@ import java.util.*;
 //import java.util.Timer;
 import javax.swing.Timer;
 
-public class GUI implements java.io.Serializable {
+public class GUI{
 
 	private final JFrame frame;
 	private ArrayList<JPanel> tileList;
@@ -59,6 +59,7 @@ public class GUI implements java.io.Serializable {
 		pane.add(dataPanel);
 		pane.add(clock);
 
+		this.showMenuDemo();
 
 		frame.pack();
 		frame.setVisible(true);
@@ -405,6 +406,51 @@ public class GUI implements java.io.Serializable {
 		}
 
 		return keyPanel;
+	}
+	public void showMenuDemo(){
+		 //create a menu bar
+		 final JMenuBar menuBar = new JMenuBar();
+
+		 //create menu
+		 JMenu saveMenu = new JMenu("File");
+
+		 //create menu items
+
+		 JMenuItem saveMenuItem = new JMenuItem("Save");
+		 saveMenuItem.setActionCommand("Save");
+
+ 		 JMenuItem loadMenuItem = new JMenuItem("Load");
+ 		 loadMenuItem.setActionCommand("Load");
+
+		 MenuItemListener menuItemListener = new MenuItemListener();
+
+		 saveMenuItem.addActionListener(menuItemListener);
+		 loadMenuItem.addActionListener(menuItemListener);
+
+		 //add menu items to menus
+		 saveMenu.add(saveMenuItem);
+		 saveMenu.add(loadMenuItem);
+
+		 //add menu to menubar
+		 menuBar.add(saveMenu);
+
+		 //add menubar to the frame
+		 frame.setJMenuBar(menuBar);
+		 frame.setVisible(true);
+	}
+	class MenuItemListener implements ActionListener {
+		 public void actionPerformed(ActionEvent e) {
+			 String action = e.getActionCommand();
+			 if(action.equals("Save")) {
+				 Driver.saveGame(event);
+				 System.out.println("Game Saved");
+			 } else if (action.equals("Load")) {
+				 Driver.loadGame();
+				 System.out.println("Game Loaded");
+			 } else {
+				 System.out.println("Error in menu");
+			 }
+		 }
 	}
 
 }

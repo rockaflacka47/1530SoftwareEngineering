@@ -19,6 +19,7 @@ task sequencehelp {
 
 run{
 	try{
+		showStandardStreams = true
 		systemProperties System.getProperties()
 		args System.getProperty("args").split()
 	}catch(Exception e){

@@ -6,20 +6,16 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Timer;
 
-public class Event implements ActionListener, java.io.Serializable{
+public class Event implements ActionListener {
 
     public ArrayList<Player> playerList;
     private ArrayList<JPanel> tileList;
     private GUI gameBoard;
     private Deck cardDeck;
     private int turnIndex;
-<<<<<<< HEAD
-	  private JButton button;
-=======
     private Timer timer;
     private JButton button;
-    
->>>>>>> master
+
 
 	public void run(){
 		gameBoard = new GUI(this);

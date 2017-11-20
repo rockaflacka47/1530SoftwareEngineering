@@ -3,7 +3,7 @@ package worldofsweets;
 import javax.swing.*;
 import java.awt.*;
 
-public class Player implements java.io.Serializable {
+public class Player {
     private String name;
     private int number;
     private int location;

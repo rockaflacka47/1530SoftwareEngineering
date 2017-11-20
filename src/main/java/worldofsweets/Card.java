@@ -3,7 +3,7 @@ package worldofsweets;
 import javax.swing.*;
 import java.util.*;
 import java.awt.Color;
-public class Card implements java.io.Serializable {
+public class Card {
     private Color color;
     private int value;
     private ImageIcon icon;
