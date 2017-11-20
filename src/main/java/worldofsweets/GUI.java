@@ -38,13 +38,15 @@ public class GUI {
 	public void stopTimer(){
 		timer.stop();
 	}
+	public void startTimer(){
+		timer.start();
+	}
 	public GUI(Event event) {
 		this.event = event;
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("World of Sweets - 0:00");
+		frame.setTitle("World of Sweets");
 		frame.setResizable(false);
-		timer.start();
 
 		Container pane = frame.getContentPane();
 
