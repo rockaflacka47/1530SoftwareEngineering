@@ -11,10 +11,17 @@ public class Card implements Serializable{
     private int value;
     private ImageIcon icon;
     
+    
     public Card(Color color, int value){
         this.color = color;
         this.value = value;
         this.icon = createIcon(color, value);
+    
+    }
+    public Card(Color color, int value, ImageIcon icon){
+        this.color = color;
+        this.value = value;
+        this.icon = icon;
     }
 
     public Color getColor(){
