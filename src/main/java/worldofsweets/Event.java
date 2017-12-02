@@ -22,7 +22,7 @@ public class Event implements ActionListener, Serializable{
     private boolean computerPlayer;
     private int drawNum;
     private int numberOfComputerPlayers;
-    
+
 
 	public void run(){
 		gameBoard = new GUI(this);
@@ -44,8 +44,8 @@ public class Event implements ActionListener, Serializable{
         }else{
             button.setEnabled(false);
         }
-        
-        
+
+
 	}
 
     public void load(){
@@ -73,7 +73,7 @@ public class Event implements ActionListener, Serializable{
                 error("The value entered was not a valid integer.", false);
                 continue;
             }
-            
+
             if(numberOfPlayers >= 2 && numberOfPlayers <= 4){
                 computerPlayer = false;
                 numberOfComputerPlayers = 0;
@@ -115,7 +115,7 @@ public class Event implements ActionListener, Serializable{
             String stringInput = JOptionPane.showInputDialog(null, "Please enter the name of player " + (i+1) + " :", "World of Sweets", JOptionPane.PLAIN_MESSAGE);
             if(stringInput.equals("")){
                 String temp = "Player " + (i+1);
-               
+
                 ret.add(i, temp);
             }
             else
@@ -130,7 +130,7 @@ public class Event implements ActionListener, Serializable{
         if(!computerPlayer){
         	for(int i = 0; i < numberOfPlayers; i++){
                 playerList.add(new Player(names.get(i), i+1, 0, iconList[i]));
-                
+
         	}
         }
         else{
@@ -139,7 +139,7 @@ public class Event implements ActionListener, Serializable{
                 int k = j+1;
                 playerList.add(new Player("Computer " + k, j+1, 0, iconList[j]));
             }
-            
+
             playerList.add(new Player(null, numberOfComputerPlayers+1, 0, iconList[numberOfComputerPlayers]));
         }
     	return playerList;
@@ -169,7 +169,7 @@ public class Event implements ActionListener, Serializable{
 
         int turns = 0;
         if(!computerPlayer){
-            turns = 1; 
+            turns = 1;
         }else{
             //adds in computers turn
             turns = numberOfComputerPlayers + 1;
@@ -183,10 +183,10 @@ public class Event implements ActionListener, Serializable{
             {
                 player = playerList.get(turnIndex);
                 if(player.getName().equalsIgnoreCase("dad")){
-                    
+
                     int loc = player.getLocation();
-                    
-                
+
+
                     //get where in the deck each of these cards is
                     int index = cardDeck.search(3, drawNum);
                     int indexCream = cardDeck.search(4, drawNum);
@@ -198,7 +198,7 @@ public class Event implements ActionListener, Serializable{
                     int blue = cardDeck.search(1, GameColor.BLUE, drawNum);
                     int green = cardDeck.search(1, GameColor.GREEN, drawNum);
                     int orange = cardDeck.search(1, GameColor.ORANGE, drawNum);
-                    
+
                     //checkif player is in front of a special sqaure and if that card has been used before
                     //if both of those are true put the special card as the next card to be drawn
                     if(player.getLocation() == 9 && index != -1){
@@ -218,12 +218,12 @@ public class Event implements ActionListener, Serializable{
                     }
                     //means red square
                     else if(loc % 5 == 1){
-                        
+
                         if(numYellow != -1 || blue != -1 || green != -1 || orange != -1 || red != -1){
-                            
+
                             //if player is in front of special square and its been used then move them to the closest color past it
                             if(player.getLocation() == 41){
-                                
+
                                 if(blue != -1)
                                     cardDeck.swap(blue);
                                 else if(green != -1)
@@ -256,7 +256,7 @@ public class Event implements ActionListener, Serializable{
                             int dubOrange = cardDeck.search(2, GameColor.ORANGE,drawNum);
                             //if player is in front of special square and its been used then move them to the closest color past it
                             if(player.getLocation() == 41){
-                                
+
                                 if(dubBlue != -1)
                                     cardDeck.swap(dubBlue);
                                 else if(dubGreen != -1)
@@ -280,16 +280,16 @@ public class Event implements ActionListener, Serializable{
                             else
                                 cardDeck.swap(dubRed);
                         }
-                        
+
 
                     }
                     //means yellow square
                     else if(loc % 5 == 2){
-                        
+
                         if(numYellow != -1 || blue != -1 || green != -1 || orange != -1 || red != -1){
                             //if player is in front of special square and its been used then move them to the closest color past it
                             if(player.getLocation() == 17){
-                                
+
                                 if(green != -1)
                                     cardDeck.swap(green);
                                 else if(orange != -1)
@@ -320,7 +320,7 @@ public class Event implements ActionListener, Serializable{
                             int dubGreen = cardDeck.search(2, GameColor.GREEN,drawNum);
                             int dubOrange = cardDeck.search(2, GameColor.ORANGE,drawNum);
                             if(player.getLocation() == 17){
-                                
+
                                 if(dubGreen != -1)
                                     cardDeck.swap(dubGreen);
                                 else if(dubOrange != -1)
@@ -348,9 +348,9 @@ public class Event implements ActionListener, Serializable{
                     else if(loc % 5 == 3){
                         //if player is in front of special square and its been used then move them to the closest color past it
                         if(numYellow != -1 || blue != -1 || green != -1 || orange != -1 || red != -1){
-                            
+
                             if(player.getLocation() == 33){
-                                
+
                                 if(orange != -1)
                                     cardDeck.swap(orange);
                                 else if(red != -1)
@@ -381,7 +381,7 @@ public class Event implements ActionListener, Serializable{
                             int dubGreen = cardDeck.search(2, GameColor.GREEN,drawNum);
                             int dubOrange = cardDeck.search(2, GameColor.ORANGE,drawNum);
                             if(player.getLocation() == 33){
-                                
+
                                 if(dubOrange != -1)
                                     cardDeck.swap(dubOrange);
                                 else if(dubRed !=-1)
@@ -409,10 +409,10 @@ public class Event implements ActionListener, Serializable{
                     else if(loc % 5 == 4){
                         //if player is in front of special square and its been used then move them to the closest color past it
                         if(numYellow != -1 || blue != -1 || green != -1 || orange != -1 || red != -1){
-                            
-                            
+
+
                             if(player.getLocation() == 9){
-                                
+
                                 if(red != -1)
                                     cardDeck.swap(red);
                                 else if(numYellow != -1)
@@ -442,7 +442,7 @@ public class Event implements ActionListener, Serializable{
                             int dubGreen = cardDeck.search(2, GameColor.GREEN,drawNum);
                             int dubOrange = cardDeck.search(2, GameColor.ORANGE,drawNum);
                             if(player.getLocation() == 9){
-                                
+
                                 if(dubRed !=-1)
                                     cardDeck.swap(dubRed);
                                 else if(dubYellow != -1)
@@ -468,11 +468,11 @@ public class Event implements ActionListener, Serializable{
                     }
                     //means orange square
                     else if(loc % 5 == 0){
-                        
+
                         if(numYellow != -1 || blue != -1 || green != -1 || orange != -1 || red != -1){
-                            
+
                             if(player.getLocation() == 25){
-                                
+
                                 if(numYellow != -1)
                                     cardDeck.swap(numYellow);
                                 else if(blue != -1)
@@ -502,7 +502,7 @@ public class Event implements ActionListener, Serializable{
                             int dubGreen = cardDeck.search(2, GameColor.GREEN,drawNum);
                             int dubOrange = cardDeck.search(2, GameColor.ORANGE,drawNum);
                             if(player.getLocation() == 25){
-                                
+
                                 if(dubYellow != -1)
                                     cardDeck.swap(dubYellow);
                                 else if(dubBlue != -1)
@@ -526,7 +526,7 @@ public class Event implements ActionListener, Serializable{
                                 cardDeck.swap(dubOrange);
                         }
                     }
-                    
+
                     card = cardDeck.drawCard();
                     drawNum++;
                     if(drawNum==69)
@@ -565,7 +565,7 @@ public class Event implements ActionListener, Serializable{
                             turnIndex = 0;
                         }
                         if(!computerPlayer){
-                            gameBoard.redraw(playerList, turnIndex, card);  
+                            gameBoard.redraw(playerList, turnIndex, card);
                         }else{
                             gameBoard.redraw(playerList, 1, card);
                         }
@@ -609,20 +609,18 @@ public class Event implements ActionListener, Serializable{
                             turnIndex = 0;
                         }
                         if(!computerPlayer){
-                            gameBoard.redraw(playerList, turnIndex, card);  
+                            gameBoard.redraw(playerList, turnIndex, card);
                         }else{
-                            gameBoard.redraw(playerList, 1, card);
+                            gameBoard.redraw(playerList, numberOfComputerPlayers, card);
                         }
 
-//                         gameBoard.redraw(playerList, numberOfComputerPlayers, card);
-
                     }
-                    
+
                 }
             }
             }
-        }	
-	
+        }
+
 
     private int findMoveLocation(int location, Card card){
         Color color = card.getColor();
