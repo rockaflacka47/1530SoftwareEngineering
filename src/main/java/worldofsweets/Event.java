@@ -21,6 +21,7 @@ public class Event implements ActionListener, Serializable{
     private JButton button;
     private boolean computerPlayer;
     private int drawNum;
+    private int numberOfComputerPlayers;
     
 
 	public void run(){
@@ -38,7 +39,7 @@ public class Event implements ActionListener, Serializable{
             if(!computerPlayer){
                 gameBoard.redraw(playerList, turnIndex, null);
             }else{
-                gameBoard.redraw(playerList, 1, null);
+                gameBoard.redraw(playerList, numberOfComputerPlayers, null);
             }
         }else{
             button.setEnabled(false);
@@ -53,7 +54,7 @@ public class Event implements ActionListener, Serializable{
         if(!computerPlayer){
             gameBoard.redraw(playerList, turnIndex, null);
         }else{
-            gameBoard.redraw(playerList, 1, null);
+            gameBoard.redraw(playerList, numberOfComputerPlayers, null);
         }
 
         gameBoard.startTimer();
@@ -75,13 +76,31 @@ public class Event implements ActionListener, Serializable{
             
             if(numberOfPlayers >= 2 && numberOfPlayers <= 4){
                 computerPlayer = false;
+                numberOfComputerPlayers = 0;
+
                 gameBoard.startTimer();
                 return numberOfPlayers;
             }
             else if(numberOfPlayers == 1){
-                computerPlayer = true;
-                gameBoard.startTimer();
-                return 2;
+                String stringNumComputerPlayers = JOptionPane.showInputDialog(null, "Please enter the number of AI players (1-3):", "World of Sweets", JOptionPane.PLAIN_MESSAGE);
+                 try{
+                if(stringInput == null){
+                    return -1;
+                }
+                numberOfComputerPlayers = Integer.parseInt(stringNumComputerPlayers);
+                }catch(NumberFormatException e){
+                    error("The value entered was not a valid integer.", false);
+                    continue;
+                }
+                if(numberOfComputerPlayers >= 1 && numberOfComputerPlayers <= 3){
+                    computerPlayer = true;
+                    gameBoard.startTimer();
+                    return numberOfPlayers + numberOfComputerPlayers;
+                }
+                else{
+                    error("The value entered was not between 1 and 3, inclusive.", false);
+                    continue;
+                }
             }
             else{
                 error("The value entered was not between 1 and 4, inclusive.", false);
@@ -115,8 +134,13 @@ public class Event implements ActionListener, Serializable{
         	}
         }
         else{
-            playerList.add(new Player("Computer", 1, 0, iconList[0]));
-            playerList.add(new Player(null, 2, 0, iconList[1]));
+            for(int j = 0; j < numberOfComputerPlayers; j++)
+            {
+                int k = j+1;
+                playerList.add(new Player("Computer " + k, j+1, 0, iconList[j]));
+            }
+            
+            playerList.add(new Player(null, numberOfComputerPlayers+1, 0, iconList[numberOfComputerPlayers]));
         }
     	return playerList;
     }
@@ -148,7 +172,7 @@ public class Event implements ActionListener, Serializable{
             turns = 1; 
         }else{
             //adds in computers turn
-            turns = 2;
+            turns = numberOfComputerPlayers + 1;
         }
 
 		if(event.getSource() == button){
@@ -546,6 +570,7 @@ public class Event implements ActionListener, Serializable{
                             gameBoard.redraw(playerList, 1, card);
                         }
                     }
+
                 }
                 else{
                     card = cardDeck.drawCard();
@@ -578,6 +603,7 @@ public class Event implements ActionListener, Serializable{
                     if(player.getLocation() == 48){
                         gameOver(player, card);
                     }else{
+
                         turnIndex++;
                         if(turnIndex >= playerList.size()){
                             turnIndex = 0;
@@ -587,6 +613,9 @@ public class Event implements ActionListener, Serializable{
                         }else{
                             gameBoard.redraw(playerList, 1, card);
                         }
+
+//                         gameBoard.redraw(playerList, numberOfComputerPlayers, card);
+
                     }
                     
                 }
