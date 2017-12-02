@@ -40,11 +40,44 @@ public class Deck implements Serializable{
 
     //if the deck has been drawn through shuffle it and keep going
     public Card drawCard(){
-        if(drawNum == 67){
+        if(drawNum == 69){
             drawNum = 0;
             this.shuffle();
         }
         return deck.get(drawNum++);
     }
+
+    
+
+    public void swap(int index){
+        
+        Card temp = new Card(deck.get(drawNum).getColor(), deck.get(drawNum).getValue(), deck.get(drawNum).getIcon());
+        Card temp2 = new Card(deck.get(index).getColor(), deck.get(index).getValue(), deck.get(index).getIcon());
+        deck.set(drawNum, temp2);
+        
+        deck.set(index, temp);
+    }
+    public int search(int toLook, int draw){
+        int j = 0;
+       
+        for(int i = draw; i < 67; i ++){
+            if(deck.get(i).getValue() == toLook){
+                
+                return i;
+            }
+        }
+        return -1;
+    }
+    public int search(int toLook, Color col, int draw){
+        for(int i = draw; i < 67; i ++){
+            
+            if(deck.get(i).getValue() == toLook && deck.get(i).getColor().equals(col)){
+               
+                return i;
+            }
+        }
+        return -1;
+    }
+    
 
 }
