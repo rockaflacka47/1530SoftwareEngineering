@@ -10,12 +10,14 @@ public class Player implements Serializable{
     private int number;
     private int location;
     private ImageIcon icon;
+	private int boomerangs;
 
     public Player(){
         name = null;
     	number = 0;
     	location = 0;
     	icon = null;
+		boomerangs = 3;
     }
 
     public Player(String name, int number, int location, ImageIcon icon){
@@ -27,6 +29,7 @@ public class Player implements Serializable{
         this.number = number;
         this.location = location;
         this.icon = icon;
+		boomerangs = 3;
     }
 
     public void setName(String name){
@@ -44,6 +47,10 @@ public class Player implements Serializable{
     public void setIcon(ImageIcon icon){
     	this.icon = icon;
     }
+
+	public void setBoomerangs(int boomerangs) {
+		this.boomerangs = boomerangs;
+	}
 
     public String getName(){
         return name;
@@ -66,4 +73,17 @@ public class Player implements Serializable{
         image = image.getScaledInstance(size, size, java.awt.Image.SCALE_SMOOTH);
         return new ImageIcon(image);
     }
+
+	public int getBoomerangs() {
+		return boomerangs;
+	}
+
+	public boolean useBoomerang() {
+		if (boomerangs <= 0) {
+			return false;
+		} else {
+			boomerangs--;
+			return true;
+		}
+	}
 }

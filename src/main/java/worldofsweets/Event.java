@@ -22,10 +22,15 @@ public class Event implements ActionListener, Serializable{
     private boolean computerPlayer;
     private int drawNum;
     private int numberOfComputerPlayers;
+    public boolean isStrategic;
+    public int boomerangIndex = -1;
 
 
 	public void run(){
 		gameBoard = new GUI(this);
+
+        isStrategic = getGameMode();
+
         int numberOfPlayers = getNumberOfPlayers();
         ArrayList<String> namesOfPlayers = getPlayerNames(numberOfPlayers);
         playerList = createPlayers(numberOfPlayers, namesOfPlayers);
@@ -58,6 +63,19 @@ public class Event implements ActionListener, Serializable{
         }
 
         gameBoard.startTimer();
+    }
+
+    public boolean getGameMode(){
+        Object[] options = {"Strategic", "Classic"};
+        int modeSelection = JOptionPane.showOptionDialog(null, "Would you like to play in Strategic or Classic mode?", "Game Mode Selector", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        if (modeSelection == 0) {
+            return true;
+        } else if (modeSelection == 1) {
+            return false;
+        } else {
+            System.exit(0);
+            return false;
+        }
     }
 
 	public int getNumberOfPlayers(){
@@ -165,6 +183,7 @@ public class Event implements ActionListener, Serializable{
         this.tileList = tileList;
     }
 
+
 	public void actionPerformed(ActionEvent event){
 
         int turns = 0;
@@ -181,7 +200,14 @@ public class Event implements ActionListener, Serializable{
 
             for(int i = 0; i < turns; i++)
             {
-                player = playerList.get(turnIndex);
+
+                if (boomerangIndex >= 0 && boomerangIndex < playerList.size()) {
+                    player = playerList.get(boomerangIndex);
+                    playerList.get(turnIndex).useBoomerang();
+                } else {
+                    player = playerList.get(turnIndex);
+                }
+
                 if(player.getName().equalsIgnoreCase("dad")){
 
                     int loc = player.getLocation();
@@ -619,6 +645,7 @@ public class Event implements ActionListener, Serializable{
                 }
             }
             }
+            boomerangIndex = -1;
         }
 
 
@@ -627,17 +654,32 @@ public class Event implements ActionListener, Serializable{
         int value = card.getValue();
         int counter = 0;
 
-        for(int i = location+1; i < tileList.size(); i++){
-            Color panelColor = tileList.get(i).getBackground();
-            if(color.toString().equals(panelColor.toString())){
-                counter++;
+        if (boomerangIndex >= 0 && boomerangIndex < playerList.size()) {
+            for(int i = location-1; i >= 0; i--){
+                Color panelColor = tileList.get(i).getBackground();
+                if(color.toString().equals(panelColor.toString())){
+                    counter++;
+                }
+                if(counter == value){
+                    return i;
+                }
             }
-            if(counter == value){
-                return i;
+
+            return 0;
+        } else {
+            for(int i = location+1; i < tileList.size(); i++){
+                Color panelColor = tileList.get(i).getBackground();
+                if(color.toString().equals(panelColor.toString())){
+                    counter++;
+                }
+                if(counter == value){
+                    return i;
+                }
             }
+
+            return 48;
         }
 
-        return 48;
     }
 
     private void gameOver(Player player, Card card){

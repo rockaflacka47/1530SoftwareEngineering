@@ -1,7 +1,7 @@
 package worldofsweets;
 
 import java.awt.*;
-import java.awt.event.*; 
+import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 import javax.swing.Timer;
@@ -13,11 +13,15 @@ public class GUI implements ActionListener, Serializable{
 	private final JFrame frame;
 	private ArrayList<JPanel> tileList;
 	private Event event;
-	
+	private static int indexSelected;
+
+	private static ArrayList<Player> playerList;
+	private static JButton boomerangButton;
+
 	JLabel clock = new JLabel();
 	CustomActionListener customActionListener;
 	Timer timer;
-	
+
 	public void stopTimer(){
 		timer.stop();
 	}
@@ -31,7 +35,7 @@ public class GUI implements ActionListener, Serializable{
 		frame.setTitle("World of Sweets");
 		frame.setResizable(false);
 
-		customActionListener = new CustomActionListener(frame, clock);	
+		customActionListener = new CustomActionListener(frame, clock);
 		timer = new Timer(1000, customActionListener);
 
 
@@ -39,7 +43,7 @@ public class GUI implements ActionListener, Serializable{
 
 		pane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		pane.setBackground(GameColor.TABLE);
-        
+
 		JPanel boardPanel = initializeBoardPanel(null);
 		JPanel dataPanel = initializeDataPanel(null, -1, null);
 
@@ -66,7 +70,7 @@ public class GUI implements ActionListener, Serializable{
 
 		pane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		pane.setBackground(GameColor.TABLE);
-        
+
 		JPanel boardPanel = initializeBoardPanel(null);
 		JPanel dataPanel = initializeDataPanel(null, -1, null);
 
@@ -90,7 +94,7 @@ public class GUI implements ActionListener, Serializable{
 
 		JPanel boardPanel = initializeBoardPanel(playerList);
 		JPanel dataPanel = initializeDataPanel(playerList, turnIndex, card);
-		
+
 		pane.removeAll();
 		pane.add(boardPanel);
 		pane.add(dataPanel);
@@ -109,7 +113,7 @@ public class GUI implements ActionListener, Serializable{
 		}else{
 			numberOfPlayers = 0;
 		}
-		
+
 		tileList = new ArrayList<JPanel>();
 		JPanel boardPanel = new JPanel();
 		boardPanel.setLayout(new GridLayout(7, 7, 0, 0));
@@ -173,7 +177,7 @@ public class GUI implements ActionListener, Serializable{
 				tileList.get(i).setLayout(new GridLayout());
 				tileList.get(i).setBackground(GameColor.WHITE);
 				tileList.get(i).add(temp);
-				tileList.get(i).setBorder(BorderFactory.createMatteBorder(4, 0, 4, 0, borderColor));			
+				tileList.get(i).setBorder(BorderFactory.createMatteBorder(4, 0, 4, 0, borderColor));
 			}else if(i == 20){
 				tileList.get(i).setBorder(BorderFactory.createMatteBorder(4, 0, 0, 0, borderColor));
 			}else{
@@ -226,7 +230,7 @@ public class GUI implements ActionListener, Serializable{
 			if(i == 35){
 				tileList.get(i).setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, borderColor));
 			}else if(i == 41){
-				tileList.get(i).setBorder(BorderFactory.createMatteBorder(4, 0, 0, 0, borderColor));	
+				tileList.get(i).setBorder(BorderFactory.createMatteBorder(4, 0, 0, 0, borderColor));
 			}else{
 				tileList.get(i).setBorder(BorderFactory.createMatteBorder(4, 0, 4, 0, borderColor));
 			}
@@ -277,7 +281,7 @@ public class GUI implements ActionListener, Serializable{
 
 			startTile.add(panel);
 		}
-		
+
 		return startTile;
 	}
 
@@ -330,7 +334,7 @@ public class GUI implements ActionListener, Serializable{
 
 			endTile.add(panel);
 		}
-		
+
 		return endTile;
 	}
 
@@ -347,7 +351,7 @@ public class GUI implements ActionListener, Serializable{
 
 		JPanel deckPanel = createDeckPanel(card);
 
-		JPanel buttonPanel = createButtonPanel();
+		JPanel buttonPanel = createButtonPanel(playerList, turnIndex);
 
 		JPanel keyPanel = createKeyPanel(playerList, turnIndex);
 
@@ -361,19 +365,33 @@ public class GUI implements ActionListener, Serializable{
 
 	private JPanel createTurnPanel(ArrayList<Player> playerList, int turnIndex){
 		String message = "---";
+		String boomerangs = "--";
 		if(playerList != null){
 			message = playerList.get(turnIndex).getName() + "'s Turn";
+			boomerangs = "Boomerangs remaining: " + playerList.get(turnIndex).getBoomerangs();
 		}
 
 		JPanel turnPanel = new JPanel();
 		JLabel label = new JLabel(message);
+
 		Font font = label.getFont();
 		label.setFont(new Font(font.getName(), font.getStyle(), 24));
 		label.setForeground(Color.WHITE);
 		turnPanel.setPreferredSize(new Dimension(500, 100));
 		turnPanel.setBackground(GameColor.TRANSPARENT);
 
-		turnPanel.add(label);
+		if (event.isStrategic) {
+			JLabel boomerangsLabel = new JLabel(boomerangs);
+			boomerangsLabel.setFont(new Font(font.getName(), font.getStyle(), 16));
+			boomerangsLabel.setForeground(Color.WHITE);
+			turnPanel.setLayout(new GridLayout(2,1));
+			turnPanel.add(label);
+			turnPanel.add(boomerangsLabel);
+		} else {
+			turnPanel.add(label);
+		}
+
+
 
 		return turnPanel;
 	}
@@ -402,7 +420,7 @@ public class GUI implements ActionListener, Serializable{
 		return deckPanel;
 	}
 
-	private JPanel createButtonPanel(){
+	private JPanel createButtonPanel(ArrayList<Player> playerList, int turnIndex){
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setPreferredSize(new Dimension(500, 100));
 		buttonPanel.setBackground(GameColor.TRANSPARENT);
@@ -414,11 +432,45 @@ public class GUI implements ActionListener, Serializable{
 
 		JButton button = new JButton("Draw A Card");
 
-		event.setButton(button); 
+		event.setButton(button);
 		button.addActionListener(event);
 
 		buttonPanel.add(blankPanel);
 		buttonPanel.add(button);
+
+		if (event.isStrategic) {
+			boomerangButton = new JButton("Boomerang");
+			if (playerList.get(turnIndex).getBoomerangs() <= 0){
+				boomerangButton.setEnabled(false);
+			} else {
+				boomerangButton.setEnabled(true);
+			}
+
+			indexSelected = -1;
+
+			boomerangButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Object[] options = new Object[playerList.size()-1];
+					int[] optionNumbers = new int[playerList.size()-1];
+					int count = 0;
+					for (int i = 0; i < playerList.size(); i++) {
+						if(i != turnIndex){
+							options[count] = playerList.get(i).getName();
+							optionNumbers[count++] = i;
+						}
+					}
+					indexSelected = JOptionPane.showOptionDialog(null, "Which player would you like to boomerang?", "Boomerang Selector", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+					indexSelected = optionNumbers[indexSelected];
+					boomerangButton.setText("Boomeranging " + playerList.get(indexSelected).getName());
+					boomerangButton.setEnabled(false);
+					event.boomerangIndex = indexSelected;
+
+					// Edit draw a card button action listener
+				}
+			});
+			buttonPanel.add(boomerangButton);
+		}
 
 		return buttonPanel;
 	}
