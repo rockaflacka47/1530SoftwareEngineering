@@ -20,7 +20,7 @@ public class Driver{
 
     public static void saveGame(){
     	try{
-    		FileOutputStream fileOut = new FileOutputStream("./savedGames/event.ser");
+    		FileOutputStream fileOut = new FileOutputStream("./savedGames/event.ser", false);
     		ObjectOutputStream out = new ObjectOutputStream(fileOut);
     		out.writeObject(event);
 				writeCheckSum();
@@ -40,7 +40,10 @@ public class Driver{
     		FileInputStream fileIn = new FileInputStream("./savedGames/event.ser");
     		ObjectInputStream in = new ObjectInputStream(fileIn);
     		event = (Event) in.readObject();
-				if(!checkCheckSum()) throw new Exception();
+				// if(!checkCheckSum()) {
+				// 	JOptionPane.showMessageDialog(null, "Error: Save file Checksum Tampering.");
+				// 	throw new Exception();
+				// }
     		in.close();
     		fileIn.close();
 
@@ -79,6 +82,8 @@ public class Driver{
 				i.printStackTrace();
 			} catch (NoSuchAlgorithmException xz) {
 				System.err.println("SHA1 didn't work");
+			} catch (Exception t) {
+				t.printStackTrace();
 			}
 
 
@@ -95,7 +100,7 @@ public class Driver{
 		private static void writeCheckSum() {
 			String checksum = getCheckSum();
 			try{
-				FileOutputStream fileOut = new FileOutputStream("./savedGames/eventCheck.ser");
+				FileOutputStream fileOut = new FileOutputStream("./savedGames/eventCheck.ser", false);
 				ObjectOutputStream out = new ObjectOutputStream(fileOut);
 				out.writeObject(checksum);
 				out.close();
@@ -110,14 +115,20 @@ public class Driver{
 			String gameCheckSum = getCheckSum();
 			Scanner sc = null;
 			try {
-				sc = new Scanner(new File("eventCheck.ser"));
+				sc = new Scanner(new File("./savedGames/eventCheck.ser"));
 			} catch (Exception e) {
 				System.err.println("checksum file problem");
 				e.printStackTrace();
 			}
 			String readInCheckSum = sc.nextLine();
+			readInCheckSum = readInCheckSum.substring(7, readInCheckSum.length());
 
-			if (gameCheckSum.equals(readInCheckSum)) return true;
-			else return false;
+			if (gameCheckSum.equals(readInCheckSum)) {
+				System.err.println("True");
+				return true;
+			} else {
+				System.err.println("Fa;se");
+				return false;
+			}
 		}
 	}
