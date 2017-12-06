@@ -70,4 +70,40 @@ public class TestPlayer {
 		assertEquals(p.getIcon().getDescription(), "images/tokens/gummybear.png");
 	}
 
+	// check boomerangs
+	@Test
+	public void testGetBoomerangs(){
+		assertNotNull(p.getBoomerangs());
+	}
+
+	// change boomerang amount
+	@Test
+	public void testChangeBoomerangs(){
+		p.setBoomerangs(4);
+		assertEquals(p.getBoomerangs(), 4);
+	}
+
+	// see if useBoomerang changes amount of boomerangs
+	@Test
+	public void testUseBoomerangChange(){
+		int a = p.getBoomerangs();
+		p.useBoomerang();
+		assertEquals(p.getBoomerangs(), a-1);
+	}
+
+	// see if useBoomerang doesn't drop below 0
+	@Test
+	public void testUseBoomerangNotBelowZero() {
+		p.setBoomerangs(0);
+		p.useBoomerang();
+		assertEquals(p.getBoomerangs(), 0);
+	}
+
+	// see if useBoomerang returns false if boomerangs = 0
+	@Test
+	public void testUseBoomerangReturnFalse() {
+		p.setBoomerangs(0);
+		assertFalse(p.useBoomerang());
+	}
+
 }
