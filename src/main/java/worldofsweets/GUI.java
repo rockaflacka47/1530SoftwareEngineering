@@ -15,6 +15,9 @@ public class GUI implements ActionListener, Serializable{
 	private Event event;
 	private static int indexSelected;
 
+	private static ArrayList<Player> playerList;
+	private static JButton boomerangButton;
+
 	JLabel clock = new JLabel();
 	CustomActionListener customActionListener;
 	Timer timer;
@@ -436,7 +439,7 @@ public class GUI implements ActionListener, Serializable{
 		buttonPanel.add(button);
 
 		if (event.isStrategic) {
-			JButton boomerangButton = new JButton("Boomerang");
+			boomerangButton = new JButton("Boomerang");
 			if (playerList.get(turnIndex).getBoomerangs() <= 0){
 				boomerangButton.setEnabled(false);
 			} else {
