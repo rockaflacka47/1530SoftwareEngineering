@@ -70,3 +70,34 @@
 2.  Start a new game, pressing "Cancel" on the "...number of players..." box.
 3.  Click File > Load in the file menu.
 4.  Observe the screen, expect an error message.
+
+### Playing against multiple AI
+1. Enter 1 in "...number of players..." box.
+2. Enter 3 in "... number of computer players..." box. 
+3.  Observe the screen, expect to see four players show up on the game board, three 
+    computers and a user.
+4.  Press "Draw A Card", expect for your token to advance as well as all the computer's 
+    tokens to advance automatically.
+
+### Playing against multiple AI - Number of AI input
+1. Enter 1 in "...number of players..." box.
+2. Enter 4 in "... number of computer players..." box. 
+3. Observe the screen, expect an error message.
+
+### Playing with the Dad cheat
+1. Enter 2 in "...number of players..." box.
+2. Enter first player as "Jim"
+3. Enter second player as "Dad"
+4. Observe the behavior of player Dad's turns. Token should be making the worst turns 
+   possible i.e. moving one square at a time until these cards run out or they pass a special card location. In which case, we expect them to move back to that space if the card hasnt been drawn.
+
+### Playing with the Dad cheat
+1. Enter 3 in "...number of players..." box.
+2. Enter first player as "Jim"
+3. Enter second player as "Dad"
+4. Enter third player as "Dad"
+4. Observe the behavior of both Dad's turns. Tokens should be making the worst turns 
+   possible i.e. moving one square at a time until these cards run out or they pass a special card location. In which case, we expect them to move back to that space if the card hasnt been drawn.
+
+
+
