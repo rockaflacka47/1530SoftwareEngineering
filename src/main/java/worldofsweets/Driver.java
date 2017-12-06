@@ -124,9 +124,6 @@ public class Driver{
 			String readInCheckSum = sc.nextLine();
 			readInCheckSum = readInCheckSum.substring(7, readInCheckSum.length());
 
-			System.err.println("read in from checksum file "+ readInCheckSum);
-			System.err.println("just made from game file "+ gameCheckSum);
-
 			if (gameCheckSum.equals(readInCheckSum)) {
 				return true;
 			} else {
