@@ -62,9 +62,8 @@ public class GUI implements ActionListener, Serializable{
 		frame.setTitle("World of Sweets");
 		frame.setResizable(false);
 
-		customActionListener.setFrame(frame);
+		customActionListener = new CustomActionListener(frame, clock);
 		timer = new Timer(1000, customActionListener);
-
 
 		Container pane = frame.getContentPane();
 

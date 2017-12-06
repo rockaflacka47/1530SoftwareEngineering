@@ -37,13 +37,14 @@ public class Driver{
 
     public static void loadGame(GUI gui){
     	try{
-    		FileInputStream fileIn = new FileInputStream("./savedGames/event.ser");
+
+    		FileInputStream fileIn = new FileInputStream("./savedgames/event.ser");
     		ObjectInputStream in = new ObjectInputStream(fileIn);
     		event = (Event) in.readObject();
-				// if(!checkCheckSum()) {
-				// 	JOptionPane.showMessageDialog(null, "Error: Save file Checksum Tampering.");
-				// 	throw new Exception();
-				// }
+				if(!checkCheckSum()) {
+					JOptionPane.showMessageDialog(null, "Error: Save file Checksum Tampering.");
+					throw new Exception();
+				}
     		in.close();
     		fileIn.close();
 
@@ -123,11 +124,12 @@ public class Driver{
 			String readInCheckSum = sc.nextLine();
 			readInCheckSum = readInCheckSum.substring(7, readInCheckSum.length());
 
+			System.err.println("read in from checksum file "+ readInCheckSum);
+			System.err.println("just made from game file "+ gameCheckSum);
+
 			if (gameCheckSum.equals(readInCheckSum)) {
-				System.err.println("True");
 				return true;
 			} else {
-				System.err.println("Fa;se");
 				return false;
 			}
 		}
