@@ -49,7 +49,7 @@
 ### Playing Against an AI
 1.  Enter 1 in "...number of players..." box.
 2.  Observe the screen, expect to see two players show up on the game board, a computer and a user.
-3.  Press "Draw A Card", expect for your token to advance as well as the computer's token to advance automatically. 
+3.  Press "Draw A Card", expect for your token to advance as well as the computer's token to advance automatically.
 
 ### Saving and Loading a Game
 ##### Saving
@@ -70,3 +70,38 @@
 2.  Start a new game, pressing "Cancel" on the "...number of players..." box.
 3.  Click File > Load in the file menu.
 4.  Observe the screen, expect an error message.
+
+### Boomerang
+##### Test Startup Prompt
+1.  Run the program, in the game mode selector dialog box, select Strategic.
+2.  Enter 4 players.
+3.  Press OK on each of the following dialog boxes.
+4.  Observe the game board, expect to see "Boomerangs remaining: 3" below "Player 1's Turn".
+
+##### Test Action
+1.  Run the program, in the game mode selector dialog box, select Strategic.
+2.  Enter 4 players.
+3.  Press OK on each of the following dialog boxes.
+4.  Click 'Draw a Card' four times.
+5.  Click the 'Boomerang' button.
+6.  Click the 'Player 2' button.
+7.  Observe Player 2's position.
+8.  Click 'Draw a Card'.
+9.  Observe Player 2's position. If the card was a color card, Player 2 should have returned to the previous color space (or two previous if two colors). If the card was a Go To card, Player 2 should have moved to that spot on the board. If the card was a skip card, nothing should have happened.
+10. Click 'Draw a Card' 3 times.
+11. Observe Player 1's "Boomerangs Remaining: " section. It should say that there are two boomerangs remaining.
+
+##### Test No More Boomerangs
+1.  Run the program, in the game mode selector dialog box, select Strategic.
+2.  Enter 4 players.
+3.  Press OK on each of the following dialog boxes.
+4.  Click the 'Boomerang' button.
+5.  Click the 'Player 2' button.
+6.  Click 'Draw a Card' four times.
+7.  Click the 'Boomerang' button.
+8.  Click the 'Player 2' button.
+9.  Click 'Draw a Card' four times.
+10.  Click the 'Boomerang' button.
+11.  Click the 'Player 2' button.
+12.  Click 'Draw a Card' four times.
+13.  Observe the 'Boomerang' button is disabled and the "Boomerangs Remaining: " section displays 0.
